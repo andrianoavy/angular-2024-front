@@ -1,0 +1,32 @@
+<p>{{ titre }}</p>
+
+<p>Avec Angular inférieur à la version 17</p>
+<ul>
+  <div *ngFor="let a of assignments">
+    <li *ngIf="a.rendu; else nonsoumis">
+      {{ a.nom }}, date de Rendu: {{ a.dateDeRendu }}, rendu: {{ a.rendu }}
+    </li>
+    <ng-template #nonsoumis>
+      <li>{{ a.nom }} NON RENDU !!!!</li>
+    </ng-template>
+  </div>
+</ul>
+
+<p>Avec Angular supérieur à la version 17</p>
+<table>
+  <tbody>
+    @for (a of assignments; track a.nom) {
+      @if(a.rendu) {
+        <tr>
+          <td>{{ a.nom }}</td>
+          <td>{{ a.dateDeRendu }}</td>
+          <td>{{ a.rendu }}</td>
+        </tr>
+      } @else {
+        <tr>
+          <td>{{ a.nom }} NON RENDU !!!!</td>
+        </tr>
+      }
+  }
+  </tbody>
+</table>

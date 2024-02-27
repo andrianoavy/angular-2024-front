@@ -73,4 +73,16 @@ export class AssignmentsComponent implements OnInit {
     this.assignments.push(event);
     this.formVisible = false;
   }
+
+  onDeleteAssignment() {
+    if(this.assignmentSelectionne) {
+      // on récupère la position de l'assignment à supprimer
+      let pos = this.assignments.indexOf(this.assignmentSelectionne);
+      // on supprime l'élément à la position pos, le second paramètre indique
+      // combien d'éléments on veut supprimer
+      this.assignments.splice(pos, 1);
+      // pour faire disparaite la vue de détail
+      this.assignmentSelectionne = undefined;
+    }
+  }
 }

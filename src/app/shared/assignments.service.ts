@@ -9,16 +9,19 @@ import { LoggingService } from './logging.service';
 export class AssignmentsService {
   assignments:Assignment[] = [
     {
+      id:1,
       nom:"Devoir Angular de Michel Buffa",
       dateDeRendu: new Date("2024-02-15"),
       rendu:false
     },
     {
+      id:2,
       nom:"Devoir SQL3 de Serge Miranda",
       dateDeRendu: new Date("2024-01-15"),
       rendu:true
     },
     {
+      id:3,
       nom:"Devoir BD de Mr Gabriel Mopolo",
       dateDeRendu: new Date("2024-03-01"),
       rendu:false
@@ -26,10 +29,18 @@ export class AssignmentsService {
   ];
   constructor(private logService:LoggingService) { }
 
+  // retourne tous les assignments
   getAssignments():Observable<Assignment[]> {
     return of(this.assignments);
   }
 
+  // renvoie un assignment par son id, renvoie undefined si pas trouvé
+  getAssignment(id:number):Observable<Assignment|undefined> {
+    let a = this.assignments.find(a => a.id === id);
+    return of(a);
+  }
+
+  // ajoute un assignment et retourne une confirmation
   addAssignment(assignment:Assignment):Observable<string> {
     this.assignments.push(assignment);
     this.logService.log(assignment.nom, "ajouté");

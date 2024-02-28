@@ -40,4 +40,11 @@ export class AssignmentsService {
    // il faudra faire une requête HTTP pour envoyer l'objet modifié
     return of("Assignment modifié avec succès");
   }
+
+  deleteAssignment(assignment:Assignment):Observable<string> {
+    // on va supprimer l'assignment dans le tableau
+    let pos = this.assignments.indexOf(assignment);
+    this.assignments.splice(pos, 1);
+    return of("Assignment supprimé avec succès");
+  }
 }

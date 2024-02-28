@@ -39,7 +39,6 @@ export class AddAssignmentComponent {
     let nouvelAssignment = new Assignment();
     // on genere un id aléatoire (plus tard ce sera fait coté serveur par
     // une base de données)
-    nouvelAssignment.id = Math.floor(Math.random() * 10000000);
     nouvelAssignment.nom = this.nomAssignment;
     nouvelAssignment.dateDeRendu = this.dateDeRendu;
     nouvelAssignment.rendu = false;

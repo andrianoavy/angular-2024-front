@@ -14,7 +14,7 @@
       <nav>
         <a routerLink="/assignment/{{a._id}}">
           <div [ngStyle]="{ color: a.rendu ? 'green' : 'red' }">
-            <h3 matLine>{{ a.nom }}, id : {{ a.id }}</h3>
+            <h3 matLine>{{ a.nom }}</h3>
             <p matLine>rendu: {{ a.rendu }}</p>
             <h3 matListItemTitle>{{ a.dateDeRendu | date }}</h3>
             <p matListItemLine>{{ a.nom }} rendu: {{ a.rendu }}</p>

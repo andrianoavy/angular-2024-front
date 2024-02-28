@@ -1,5 +1,5 @@
 @if(assignmentTransmis) {
-  <h2>Détail de l'assignment:</h2>
+<h2>Détail de l'assignment:</h2>
 
 <mat-card>
   <mat-card-content>
@@ -10,9 +10,14 @@
   </mat-card-content>
   <mat-card-actions class="container">
     @if(!assignmentTransmis.rendu) {
-       <mat-checkbox (click)="onAssignmentRendu()">Rendu</mat-checkbox>
+    <mat-checkbox (click)="onAssignmentRendu()">Rendu</mat-checkbox>
     }
     <button mat-raised-button color="warn" (click)="onDelete()">DELETE</button>
+    <nav>
+      <a routerLink="edit">
+        <button mat-raised-button color="primary">EDIT</button>
+      </a>
+    </nav>
   </mat-card-actions>
 </mat-card>
 

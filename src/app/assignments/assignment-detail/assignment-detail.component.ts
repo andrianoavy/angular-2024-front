@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Assignment } from '../assignment.model';
 import { AssignmentsService } from '../../shared/assignments.service';
 import  {RouterLink} from '@angular/router';
+import { AuthService } from '../../shared/auth.service';
 @Component({
   selector: 'app-assignment-detail',
   standalone: true,
@@ -20,6 +21,7 @@ export class AssignmentDetailComponent implements OnInit {
   assignmentTransmis!: Assignment|undefined;
 
   constructor(private assignmentsService:AssignmentsService,
+              private authService:AuthService,
               private route:ActivatedRoute,
               private router:Router) { }
 
@@ -63,5 +65,9 @@ export class AssignmentDetailComponent implements OnInit {
         this.router.navigate(['/home']);
       });
     }
+  }
+
+  isAdmin() {
+    return this.authService.loggedIn;
   }
 }

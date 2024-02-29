@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Assignment } from '../assignments/assignment.model';
-import { Observable, of } from 'rxjs';
+import { Observable, forkJoin, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoggingService } from './logging.service';
 import { HttpClient } from '@angular/common/http';
+
+// importation des données de test
+import { bdInitialAssignments } from './data';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +22,10 @@ export class AssignmentsService {
   // retourne tous les assignments
   getAssignments():Observable<Assignment[]> {
     return this.http.get<Assignment[]>(this.uri);
+  }
+
+  getAssignmentsPagines(page:number, limit:number):Observable<any> {
+    return this.http.get<Assignment[]>(this.uri + "?page=" + page + "&limit=" + limit);
   }
 
   // renvoie un assignment par son id, renvoie undefined si pas trouvé
@@ -79,4 +86,38 @@ export class AssignmentsService {
     //return of("Assignment supprimé avec succès");
     return this.http.delete(this.uri + "/" + assignment._id);
   }
+
+  // VERSION NAIVE (on ne peut pas savoir quand l'opération des 1000 insertions est terminée)
+  peuplerBD() {
+    // on utilise les données de test générées avec mockaroo.com pour peupler la base
+    // de données
+    bdInitialAssignments.forEach(a => {
+      let nouvelAssignment = new Assignment();
+      nouvelAssignment.nom = a.nom;
+      nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
+      nouvelAssignment.rendu = a.rendu;
+
+      this.addAssignment(nouvelAssignment)
+      .subscribe(() => {
+        console.log("Assignment " + a.nom + " ajouté");
+      });
+    });
+  }
+
+  peuplerBDavecForkJoin():Observable<any> {
+    let appelsVersAddAssignment:Observable<any>[] = [];
+
+    bdInitialAssignments.forEach(a => {
+      const nouvelAssignment = new Assignment();
+      nouvelAssignment.nom = a.nom;
+      nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
+      nouvelAssignment.rendu = a.rendu;
+
+      appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment))
+    });
+
+    return forkJoin(appelsVersAddAssignment);
+  }
+
+
 }

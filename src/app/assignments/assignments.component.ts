@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
+import {MatTable, MatTableModule} from '@angular/material/table';
+import {PageEvent, MatPaginatorModule} from '@angular/material/paginator';
+
 import { RenduDirective } from '../shared/rendu.directive';
 import { Assignment } from './assignment.model';
 import { AssignmentDetailComponent } from './assignment-detail/assignment-detail.component';
@@ -20,6 +23,7 @@ import { RouterLink } from '@angular/router';
     CommonModule, FormsModule,
     RouterLink,
     MatButtonModule,
+    MatTable, MatTableModule, MatPaginatorModule,
     MatListModule, MatSliderModule,
     RenduDirective,
     AssignmentDetailComponent,
@@ -39,6 +43,8 @@ export class AssignmentsComponent implements OnInit {
   hasPrevPage !: boolean;
 
   // tableau des assignments POUR AFFICHAGE
+  displayedColumns: string[] = ['nom', 'dateDeRendu', 'rendu'];
+
   assignments: Assignment[] = [];
 
   // ici on injecte le service
@@ -84,9 +90,16 @@ export class AssignmentsComponent implements OnInit {
     this.page = 1;
     this.getAssignmentsFromService();
   }
-  
+
   dernierePage() {
     this.page = this.totalPages;
+    this.getAssignmentsFromService();
+  }
+
+  // Pour le composant angular material paginator
+  handlePageEvent(event: PageEvent) {
+    this.page = event.pageIndex + 1;
+    this.limit = event.pageSize;
     this.getAssignmentsFromService();
   }
 }

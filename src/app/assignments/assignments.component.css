@@ -24,3 +24,10 @@ table, tr, td {
   align-self: flex-end;
 }
 
+.demo-table {
+  width: 100%;
+}
+
+.demo-button-container {
+  padding-bottom: 16px;
+}

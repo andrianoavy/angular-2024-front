@@ -1,0 +1,9 @@
+dl>dt {
+  padding-top:0.2rem;
+}
+dl>dt:first-child {
+  padding-top:0;
+}
+dl>dd.remark {
+  display: list-item;
+}

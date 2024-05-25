@@ -1,0 +1,7 @@
+<h2>Liste des devoirs</h2>
+<h3>Affichage etudiant:</h3>
+<div class="assignments-list">
+  @for(a of assignments | async; track a.nom) {
+  <app-assignments-list-item [assignment]="a"/>
+    }
+</div>

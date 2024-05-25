@@ -3,7 +3,7 @@ export class Assignment {
   nom!: string;
   dateLimite!: Date;
   rendu!: boolean;
-  matiere!: {
+  matiere?: {
     nom: string;
     illustration?: string;
     responsable: {
@@ -12,10 +12,15 @@ export class Assignment {
       photo?: string;
     };
   };
-  auteur!: {
-    _id?: string;
-    nom: string;
-  }
+  auteurs?: [
+    {
+      _id?: string;
+      nom: string;
+      dateDeRendu?: Date;
+      note?: number;
+      remarques?: string[];
+    }
+  ]
   dateDeRendu?: Date;
   note?: number;
   remarques?: string[];

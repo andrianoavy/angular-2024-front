@@ -1,0 +1,78 @@
+{
+  "assignments-students": [
+    { "_id": "1", "nom": "Projet grails", "dateDeRendu": "06/06/2024", "rendu": "false",
+      "matiere": {
+        "_id": "1",
+        "nom": "Developpement d'application full stack en grails et REST Api",
+        "responsable": "Gregori Galli"
+      }
+    },
+    { "_id": "2", "nom": "Projet Ios", "dateDeRendu": "2024/31/05", "rendu": "true",
+      "matiere": {
+        "_id": "2",
+        "nom": "Developpement d'application mobile Ios native",
+        "responsable": "Amosse Edouard"
+      },
+      "note": 16,
+      "remarque": ["Joli design", "Ton code pue!"]
+    },
+    { "_id": "3", "nom": "Projet angular node", "dateDeRendu": "2024/31/05", "rendu": "true",
+      "matiere": {
+        "_id": "3",
+        "nom": "Developpement application full stack angular et node",
+        "responsable": "Michel Buffa"
+      },
+      "note": 10,
+      "remarques": ["Mauvais design", "Code trop simpliste"]
+    }
+  ],
+  "assignments-profs": [
+    { "_id": "1", "nom": "Projet grails", "dateLimite": "2024/06/06",
+      "auteurs": [
+        {"_id": "1", "nom":"Abraham Ramilison"}
+      ]
+    },
+    { "_id": "2", "nom": "Projet Ios", "dateLimite": "2024/05/31",
+      "auteurs": [
+        {
+          "_id": "1", "nom":"Abraham Ramilison",
+          "dateDeRendu": "2024/06/01",
+          "note": 16,
+          "remarque": ["Joli design", "Ton code pue!"],
+          "rendu": true
+        }
+      ]
+    },
+    { "_id": "3", "nom": "Projet angular node", "dateLimite": "2024/05/31",
+      "auteurs": [
+        {
+          "_id": "1", "nom":"Abraham Ramilison",
+          "dateDeRendu": "2024/05/30",
+          "note": 10,
+          "remarque": ["Mauvais design", "Code trop simpliste"],
+          "rendu": true
+        }
+      ]
+    }
+  ],
+  "students": [
+    { "_id": "1", "nom":"Abraham Ramilison" }
+  ],
+  "matieres": [
+      {
+        "_id": "1",
+        "nom": "Developpement d'application full stack en grails et REST Api",
+        "responsable": "Gregori Galli"
+      },
+      {
+        "_id": "2",
+        "nom": "Developpement d'application mobile Ios native",
+        "responsable": "Amosse Edouard"
+      },
+      {
+        "_id": "3",
+        "nom": "Developpement application full stack angular et node",
+        "responsable": "Michel Buffa"
+      }
+  ]
+}

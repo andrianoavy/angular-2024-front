@@ -1,13 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { Assignment } from '../assignments-new.model';
-import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
+import {  MatCardModule } from '@angular/material/card';
 import { DatePipe } from '@angular/common';
 import { MatButton } from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-assignments-list-item',
   standalone: true,
-  imports: [MatCard, MatCardContent, MatCardTitle, MatCardSubtitle, MatCardActions, MatCardHeader, MatButton, DatePipe],
+  imports: [MatCardModule, MatButton, DatePipe, MatListModule, MatDividerModule],
   templateUrl: './assignments-list-item.component.html',
   styleUrl: './assignments-list-item.component.css'
 })

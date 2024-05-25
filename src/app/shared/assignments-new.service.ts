@@ -9,7 +9,7 @@ import { Observable, catchError, of } from 'rxjs';
 export class AssignmentsNewService {
 
   private urlStudent = 'http://10.42.0.1:3000/assignments-students';
-  private urlProf = 'http://localhost:3000/assignments-profs';
+  private urlProf = 'http://10.42.0.1:3000/assignments-profs';
 
   constructor(private http: HttpClient) { }
 

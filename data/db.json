@@ -15,7 +15,7 @@
       },
       "dateDeRendu": "06/02/2024",
       "note": 16,
-      "remarque": ["Joli design", "Ton code pue!"]
+      "remarques": ["Joli design", "Ton code pue!"]
     },
     { "_id": "3", "nom": "Projet angular node", "dateLimite": "05/31/2024", "rendu": "true",
       "matiere": {
@@ -29,36 +29,62 @@
     }
   ],
   "assignments-profs": [
-    { "_id": "1", "nom": "Projet grails", "dateLimite": "2024/06/06",
-      "auteurs": [
+    { "_id": "1", "nom": "Projet grails", "dateLimite": "06/06/2024",
+      "nonRendus": [
         {"_id": "1", "nom":"Abraham Ramilison"}
+      ],
+      "rendus": [
+        {
+          "_id": "2", "nom":"Andrianoavy Rami",
+          "dateDeRendu": "05/30/2024",
+          "note": 19,
+          "remarques": ["Tu as gagné"],
+          "rendu": true
+        }
       ]
     },
-    { "_id": "2", "nom": "Projet Ios", "dateLimite": "2024/05/31",
-      "auteurs": [
+    { "_id": "2", "nom": "Projet Ios", "dateLimite": "05/31/2024",
+      "rendus": [
         {
           "_id": "1", "nom":"Abraham Ramilison",
           "dateDeRendu": "06/01/2024",
           "note": 16,
-          "remarque": ["Joli design", "Ton code pue!"],
+          "remarques": ["Joli design", "Ton code pue!"],
+          "rendu": true
+        },
+        {
+          "_id": "2", "nom":"Andrianoavy Rami",
+          "dateDeRendu": "05/25/2024",
+          "note": 20,
+          "remarques": ["wow", "Ton code est bon!", "GGs"],
           "rendu": true
         }
-      ]
+      ],
+      "nonRendus":[]
     },
-    { "_id": "3", "nom": "Projet angular node", "dateLimite": "2024/05/31",
-      "auteurs": [
+    { "_id": "3", "nom": "Projet angular node", "dateLimite": "05/31/2024",
+      "rendus": [
         {
           "_id": "1", "nom":"Abraham Ramilison",
-          "dateDeRendu": "30/05/2024",
+          "dateDeRendu": "05/30/2024",
           "note": 10,
-          "remarque": ["Mauvais design", "Code trop simpliste"],
+          "remarques": ["Mauvais design", "Code trop simpliste"],
+          "rendu": true
+        },
+        {
+          "_id": "2", "nom":"Andrianoavy Rami",
+          "dateDeRendu": "05/29/2024",
+          "note":21,
+          "remarques": ["Taf teny gasy aho"],
           "rendu": true
         }
-      ]
+      ],
+      "nonRendus":[]
     }
   ],
   "students": [
-    { "_id": "1", "nom":"Abraham Ramilison" }
+    { "_id": "1", "nom":"Abraham Ramilison" },
+    { "_id": "2", "nom":"Andrianoavy Rami" }
   ],
   "matieres": [
       {

@@ -5,10 +5,12 @@ import { AssignmentDetailComponent } from './assignments/assignment-detail/assig
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { authGuard } from './shared/auth.guard';
 import { AssignmentsNewComponent } from './assignments-new/assignments-new.component';
+import { DragdropRendusComponent } from './assignments-new/dragdrop-rendus/dragdrop-rendus.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/new', pathMatch: 'full' },
   { path: 'new/:id', component: AssignmentsNewComponent },
+  { path: 'dnd', component: DragdropRendusComponent },
   { path: 'home', component: AssignmentsComponent },
   { path: "add", component: AddAssignmentComponent },
   { path: "assignment/:id", component: AssignmentDetailComponent},

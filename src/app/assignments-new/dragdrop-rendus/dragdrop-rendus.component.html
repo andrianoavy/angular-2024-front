@@ -1,0 +1,27 @@
+<div class="dragdrop-main">
+  <div class="container">
+    <p>Non Rendus</p>
+
+    <div cdkDropList #nonRendusList="cdkDropList" [cdkDropListData]="nonRendus"
+      [cdkDropListConnectedTo]="rendusList" class="list" (cdkDropListDropped)="drop($event)">
+      @for (devoir of nonRendus; track devoir._id) {
+      <div class="list-item" cdkDrag>
+        {{devoir.nom}}
+      </div>
+      }
+    </div>
+  </div>
+
+  <div class="container">
+    <p>Rendus</p>
+
+    <div cdkDropList #rendusList="cdkDropList" [cdkDropListData]="rendus"
+      [cdkDropListConnectedTo]="nonRendusList" class="list" (cdkDropListDropped)="drop($event)">
+      @for (devoir of rendus; track devoir._id) {
+      <div class="list-item multi-line" cdkDrag>
+          {{devoir.nom}} ({{devoir.dateDeRendu | date}})
+      </div>
+      }
+    </div>
+  </div>
+</div>

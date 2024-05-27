@@ -7,33 +7,7 @@
     <mat-card-subtitle>A rendre avant le: <strong> {{assignment.dateLimite | date}} </strong></mat-card-subtitle>
   </mat-card-header>
     <mat-card-content [style.display]="showDetails?'block':'none'">
-      <div class="list-authors">
-       <mat-list>
-        <div mat-subheader>Non Rendu(s)</div>
-        @for (devoir of assignment.nonRendus; track devoir._id) {
-          <mat-list-item>
-            <div matListItemTitle>{{devoir.nom}}</div>
-          </mat-list-item>
-        }
-      </mat-list>
-      <mat-list>
-        <div mat-subheader>Rendu(s)</div>
-        @for (devoir of assignment.rendus; track devoir._id) {
-          <mat-list-item>
-            <div matListItemTitle>{{devoir.nom}}</div>
-            <div matListItemLine>Rendu le {{devoir.dateDeRendu | date}}</div>
-            <div matListItemLine>Note {{devoir.note}}/20</div>
-            <dl matListItemLine>
-              <dt>Remarques</dt>
-              @for(r of devoir.remarques; track r) {
-              <dd class="remark">{{r}}</dd>
-              }
-            </dl>
-          </mat-list-item>
-        }
-      </mat-list>
-
-      </div>
+      <app-dragdrop-rendus [assignmentId]="assignment._id!" [rendus]="assignment.rendus?? []" [nonRendus]="assignment.nonRendus?? []"></app-dragdrop-rendus>
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button (click)="toggleDetails()" color="primary">DETAILS</button>

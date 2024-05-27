@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 // importation des données de test
 import { bdInitialAssignments } from './data';
+import { CdkDrag } from '@angular/cdk/drag-drop';
 
 @Injectable({
   providedIn: 'root'

@@ -8,7 +8,7 @@ import { AssignmentsNewComponent } from './assignments-new/assignments-new.compo
 
 export const routes: Routes = [
   { path: '', redirectTo: '/new', pathMatch: 'full' },
-  { path: 'new', component: AssignmentsNewComponent },
+  { path: 'new/:id', component: AssignmentsNewComponent },
   { path: 'home', component: AssignmentsComponent },
   { path: "add", component: AddAssignmentComponent },
   { path: "assignment/:id", component: AssignmentDetailComponent},

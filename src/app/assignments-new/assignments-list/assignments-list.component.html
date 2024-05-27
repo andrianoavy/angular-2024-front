@@ -1,13 +1,11 @@
 <h2>Liste des devoirs</h2>
-<h3>Affichage etudiant:</h3>
 <div class="assignments-list">
-  @for(a of assignmentsStudents | async; track a.nom) {
-  <app-assignments-list-item [assignment]="a"/>
-    }
-</div>
-<h3>Affichage prof:</h3>
-<div class="assignments-list">
-  @for(a of assignmentsProfs | async; track a.nom) {
-  <app-assignments-list-item [assignment]="a"/>
-    }
+  @for(a of assignments | async; track a.nom) {
+    @if(isStudent){
+    <app-assignments-list-item-student [assignment]="a"/>
+      }
+      @else{
+    <app-assignments-list-item [assignment]="a"/>
+      }
+  }
 </div>

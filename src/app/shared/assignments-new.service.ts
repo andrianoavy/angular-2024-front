@@ -10,6 +10,7 @@ export class AssignmentsNewService {
 
   private urlStudent = 'http://10.42.0.1:3000/assignments-students';
   private urlProf = 'http://10.42.0.1:3000/assignments-profs';
+  private urlAdmin = 'http://10.42.0.1:3000/assignments-admin';
 
   constructor(private http: HttpClient) { }
 
@@ -21,6 +22,12 @@ export class AssignmentsNewService {
   }
   getAssignmentsProfs(): Observable<Assignment[]> {
     return this.http.get<Assignment[]>(this.urlProf)
+      .pipe(
+        catchError(this.handleError('getAssigments', [] as Assignment[]))
+      );
+  }
+  getAssignmentsAdmin(): Observable<Assignment[]> {
+    return this.http.get<Assignment[]>(this.urlAdmin)
       .pipe(
         catchError(this.handleError('getAssigments', [] as Assignment[]))
       );

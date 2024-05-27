@@ -1,29 +1,31 @@
-@if(assignment.rendus || assignment.nonRendus){
 <mat-card class="example-card">
   <mat-card-header>
     <mat-card-title>{{assignment.nom}}</mat-card-title>
+    @if(isAdmin){
+      <mat-card-subtitle>Matière: {{assignment.matiere!.nom}}({{assignment.matiere!.responsable}})</mat-card-subtitle>
+    }
     <mat-card-subtitle>A rendre avant le: <strong> {{assignment.dateLimite | date}} </strong></mat-card-subtitle>
   </mat-card-header>
     <mat-card-content [style.display]="showDetails?'block':'none'">
       <div class="list-authors">
        <mat-list>
         <div mat-subheader>Non Rendu(s)</div>
-        @for (assignment of assignment.nonRendus; track assignment._id) {
+        @for (devoir of assignment.nonRendus; track devoir._id) {
           <mat-list-item>
-            <div matListItemTitle>{{assignment.nom}}</div>
+            <div matListItemTitle>{{devoir.nom}}</div>
           </mat-list-item>
         }
       </mat-list>
       <mat-list>
         <div mat-subheader>Rendu(s)</div>
-        @for (assignment of assignment.rendus; track assignment._id) {
+        @for (devoir of assignment.rendus; track devoir._id) {
           <mat-list-item>
-            <div matListItemTitle>{{assignment.nom}}</div>
-            <div matListItemLine>Rendu le {{assignment.dateDeRendu | date}}</div>
-            <div matListItemLine>Note {{assignment.note}}/20</div>
+            <div matListItemTitle>{{devoir.nom}}</div>
+            <div matListItemLine>Rendu le {{devoir.dateDeRendu | date}}</div>
+            <div matListItemLine>Note {{devoir.note}}/20</div>
             <dl matListItemLine>
               <dt>Remarques</dt>
-              @for(r of assignment.remarques; track r) {
+              @for(r of devoir.remarques; track r) {
               <dd class="remark">{{r}}</dd>
               }
             </dl>
@@ -37,31 +39,3 @@
       <button mat-raised-button (click)="toggleDetails()" color="primary">DETAILS</button>
     </mat-card-actions>
 </mat-card>
-}
-@else{
-<mat-card class="example-card">
-  <mat-card-header>
-    <mat-card-title>{{assignment.nom}}</mat-card-title>
-    <mat-card-subtitle>Matière: {{assignment.matiere!.nom}}({{assignment.matiere!.responsable}})</mat-card-subtitle>
-    <mat-card-subtitle>A rendre avant le: <strong> {{assignment.dateLimite | date}} </strong></mat-card-subtitle>
-  </mat-card-header>
-    @if(assignment.dateDeRendu){
-    <mat-card-content [style.display]="showDetails?'block':'none'">
-      <dl>
-        <dt>Note:</dt>
-        <dd>{{assignment.note}}/20</dd>
-        <dt>Remarques:</dt>
-        @for(r of assignment.remarques; track r) {
-        <dd class="remark">{{r}}</dd>
-        }
-      </dl>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button (click)="toggleDetails()" color="primary">DETAILS</button>
-    </mat-card-actions>
-    }
-</mat-card>
-}
-
-
-

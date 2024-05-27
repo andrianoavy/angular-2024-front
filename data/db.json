@@ -82,6 +82,75 @@
       "nonRendus":[]
     }
   ],
+  "assignments-admin": [
+    { "_id": "1", "nom": "Projet grails", "dateLimite": "06/06/2024",
+      "matiere": {
+        "_id": "1",
+        "nom": "Developpement d'application full stack en grails et REST Api",
+        "responsable": "Gregori Galli"
+      },
+      "nonRendus": [
+        {"_id": "1", "nom":"Abraham Ramilison"}
+      ],
+      "rendus": [
+        {
+          "_id": "2", "nom":"Andrianoavy Rami",
+          "dateDeRendu": "05/30/2024",
+          "note": 19,
+          "remarques": ["Tu as gagné"],
+          "rendu": true
+        }
+      ]
+    },
+    { "_id": "2", "nom": "Projet Ios", "dateLimite": "05/31/2024",
+      "matiere": {
+        "_id": "2",
+        "nom": "Developpement d'application mobile Ios native",
+        "responsable": "Amosse Edouard"
+      },
+      "rendus": [
+        {
+          "_id": "1", "nom":"Abraham Ramilison",
+          "dateDeRendu": "06/01/2024",
+          "note": 16,
+          "remarques": ["Joli design", "Ton code pue!"],
+          "rendu": true
+        },
+        {
+          "_id": "2", "nom":"Andrianoavy Rami",
+          "dateDeRendu": "05/25/2024",
+          "note": 20,
+          "remarques": ["wow", "Ton code est bon!", "GGs"],
+          "rendu": true
+        }
+      ],
+      "nonRendus":[]
+    },
+    { "_id": "3", "nom": "Projet angular node", "dateLimite": "05/31/2024",
+      "matiere": {
+        "_id": "2",
+        "nom": "Developpement d'application mobile Ios native",
+        "responsable": "Amosse Edouard"
+      },
+      "rendus": [
+        {
+          "_id": "1", "nom":"Abraham Ramilison",
+          "dateDeRendu": "05/30/2024",
+          "note": 10,
+          "remarques": ["Mauvais design", "Code trop simpliste"],
+          "rendu": true
+        },
+        {
+          "_id": "2", "nom":"Andrianoavy Rami",
+          "dateDeRendu": "05/29/2024",
+          "note":21,
+          "remarques": ["Taf teny gasy aho"],
+          "rendu": true
+        }
+      ],
+      "nonRendus":[]
+    }
+  ],
   "students": [
     { "_id": "1", "nom":"Abraham Ramilison" },
     { "_id": "2", "nom":"Andrianoavy Rami" }

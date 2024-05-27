@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AssignmentsListComponent } from './assignments-list/assignments-list.component';
+import { ActivatedRoute } from '@angular/router';
+import { AutorizationService } from '../autorization.service';
 
 @Component({
   selector: 'app-assignments-new',
@@ -9,6 +11,15 @@ import { AssignmentsListComponent } from './assignments-list/assignments-list.co
   styleUrl: './assignments-new.component.css'
 })
 
-export class AssignmentsNewComponent {
+export class AssignmentsNewComponent implements OnInit {
+
+  constructor(private autorization:AutorizationService, private route: ActivatedRoute) {
+  }
+
+  ngOnInit(): void {
+    let id = this.route.snapshot.paramMap.get("id");
+
+    this.autorization.assignRole(id);
+  }
 
 }

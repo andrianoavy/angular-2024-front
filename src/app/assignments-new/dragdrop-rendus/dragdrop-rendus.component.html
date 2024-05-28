@@ -2,8 +2,8 @@
   <div class="container">
     <p>Non Rendus</p>
 
-    <div cdkDropList #nonRendusList="cdkDropList" [cdkDropListData]="nonRendus"
-      [cdkDropListConnectedTo]="rendusList" class="list" (cdkDropListDropped)="drop($event)">
+    <div cdkDropList #nonRendusList="cdkDropList" [cdkDropListData]="nonRendus" [cdkDropListConnectedTo]="rendusList"
+      class="list" (cdkDropListDropped)="drop($event)">
       @for (devoir of nonRendus; track devoir._id) {
       <div class="list-item" cdkDrag>
         {{devoir.nom}}
@@ -15,11 +15,16 @@
   <div class="container">
     <p>Rendus</p>
 
-    <div cdkDropList #rendusList="cdkDropList" [cdkDropListData]="rendus"
-      [cdkDropListConnectedTo]="nonRendusList" class="list" (cdkDropListDropped)="drop($event)">
+    <div cdkDropList #rendusList="cdkDropList" [cdkDropListData]="rendus" [cdkDropListConnectedTo]="nonRendusList"
+      class="list" (cdkDropListDropped)="drop($event)">
       @for (devoir of rendus; track devoir._id) {
       <div class="list-item multi-line" cdkDrag>
-          {{devoir.nom}} ({{devoir.dateDeRendu | date}})
+        <span>{{devoir.nom}} ({{devoir.dateDeRendu | date}})</span>
+        <strong>{{devoir.note}}/20</strong>
+        @if(devoir.remarques && devoir.remarques.length){
+        <a mat-button (click)="toggleRemarques(devoir.remarques)" color="primary">Remarques</a>
+        }
+
       </div>
       }
     </div>

@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Remarques</h2>
+<mat-dialog-content>
+  <ul>
+    @for(remarque of remarques; track remarque) {
+    <li>{{remarque}}</li>
+    }
+  </ul>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="dialogRef.close()">Fermer</button>
+</mat-dialog-actions>

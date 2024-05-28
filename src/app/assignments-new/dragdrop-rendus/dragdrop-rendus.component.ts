@@ -7,13 +7,15 @@ import { AssignmentsNewService } from '../../shared/assignments-new.service';
 import { Dialog } from '@angular/cdk/dialog';
 import { DialogData, RenduDialogComponent } from '../rendu-dialog/rendu-dialog.component';
 import { AnnulerRenduDialogComponent } from '../annuler-rendu-dialog/annuler-rendu-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
+import { RemarquesDialogComponent } from '../remarques-dialog/remarques-dialog.component';
 
 @Component({
   selector: 'app-dragdrop-rendus',
   templateUrl: './dragdrop-rendus.component.html',
   styleUrl: './dragdrop-rendus.component.css',
   standalone: true,
-  imports: [DatePipe, CdkDrag, CdkDropList, MatListModule]
+  imports: [MatButtonModule, DatePipe, CdkDrag, CdkDropList, MatListModule]
 })
 export class DragdropRendusComponent {
   @Input()
@@ -68,15 +70,22 @@ export class DragdropRendusComponent {
   openRenduDialog(auteur: Auteur, doOnClosed: () => void): void {
     const dialogRef = this.dialog.open<DialogData>(RenduDialogComponent, {
       data: { note: auteur.note, date: auteur.dateDeRendu, remarques: auteur.remarques },
+      minWidth:'250px'
     });
 
     dialogRef.closed.subscribe(result => {
       if (result && (result.note || result.note === 0)) {
         auteur.note = result.note;
         auteur.dateDeRendu = result.date;
-        auteur.remarques = result.remarques?.split('\n');
+        if (!Array.isArray(auteur.remarques)) {
+          auteur.remarques = result.remarques?.split('\n');
+        }
         doOnClosed();
       }
     });
+  }
+
+  toggleRemarques(remarques: string[]) {
+    this.dialog.open<string[]>(RemarquesDialogComponent, {data:remarques, minWidth:'250px', maxWidth:'80vw'});
   }
 }

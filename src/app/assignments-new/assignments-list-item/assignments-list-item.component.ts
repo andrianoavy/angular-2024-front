@@ -11,7 +11,7 @@ import { DragdropRendusComponent } from '../dragdrop-rendus/dragdrop-rendus.comp
 @Component({
   selector: 'app-assignments-list-item',
   standalone: true,
-  imports: [DragdropRendusComponent, MatCardModule, MatButton, DatePipe, MatListModule, MatDividerModule ],
+  imports: [DragdropRendusComponent, MatCardModule, MatButton, DatePipe, MatListModule, MatDividerModule],
   templateUrl: './assignments-list-item.component.html',
   styleUrl: './assignments-list-item.component.css'
 })

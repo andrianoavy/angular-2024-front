@@ -5,7 +5,6 @@ export class Assignment {
   _id?: string;
   nom!: string;
   dateLimite!: Date;
-  rendu!: boolean;
   matiere?: Matiere;
   rendus?: Auteur[]
   nonRendus?: Auteur[]

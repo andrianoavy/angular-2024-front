@@ -51,13 +51,15 @@ export class AssignmentsNewService {
     return true;
   }
 
-  save() {
-
+  save(assignment: Assignment): Observable<Assignment | null> {
+    console.log(assignment);
+    return this.http.post<Assignment>(this.urlAdmin, {...assignment}).pipe(catchError(this.handleError('save', null)));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
+      console.log(error);
       return of(result as T);
     };
   }

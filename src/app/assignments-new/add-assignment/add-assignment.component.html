@@ -1,4 +1,5 @@
-<mat-stepper  #stepper>
+<h2>Formulaire de devoir</h2>
+<mat-stepper #stepper>
   <mat-step [stepControl]="infoDevoirFormGroup">
     <form [formGroup]="infoDevoirFormGroup">
       <ng-template matStepLabel>Informations devoir</ng-template>
@@ -14,29 +15,41 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <div>
-        <button mat-button matStepperNext>Suivant</button>
+        <button color="primary" mat-flat-button matStepperNext>Suivant</button>
       </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="elevesFormGroup" label="Elèves concernés">
     <form [formGroup]="elevesFormGroup">
-      <mat-form-field>
-        <mat-label>Eleves</mat-label>
-        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+      <mat-form-field style="max-width: 250px">
+        <mat-label>Groupes</mat-label>
+        <mat-select formControlName="group" multiple>
+          @for (group of groupList; track group) {
+          <mat-option [value]="group">{{group}}</mat-option>
+          }
+        </mat-select>
       </mat-form-field>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperPrevious>Retour</button>
+        <button color="primary" mat-flat-button matStepperNext>Suivant</button>
       </div>
     </form>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Terminer</ng-template>
-    <p>You are now done.</p>
+    <p>Veuillez confirmer les informations</p>
+    <dl>
+      <dt>Nom du devoir</dt>
+      <dd>{{infoDevoirFormGroup.get('nomDevoir')!.value}}</dd>
+      <dt>Date limite</dt>
+      <dd>{{infoDevoirFormGroup.get('dateLimite')!.value | date}}</dd>
+      <dt>Groupes concernés</dt>
+      <dd>{{elevesFormGroup.get('group')!.value}}</dd>
+    </dl>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperPrevious>Retour</button>
       <button mat-button (click)="stepper.reset()">Reinitialiser</button>
-      <button mat-button (click)="save()"></button>
+      <button mat-flat-button (click)="save()" color="primary">Enregistrer</button>
     </div>
   </mat-step>
 </mat-stepper>

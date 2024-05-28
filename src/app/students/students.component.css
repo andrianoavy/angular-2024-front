@@ -1,0 +1,8 @@
+mat-drawer {
+  padding:1rem 1.5rem;
+}
+mat-drawer-content {
+  height: 100%;
+  display:flex;
+  flex-direction:column;
+}

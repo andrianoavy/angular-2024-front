@@ -1,0 +1,19 @@
+<mat-drawer-container hasBackdrop="false" class="example-container" style="min-height: 90vh; min-height:90dvh">
+  <mat-drawer #drawer position="end">
+    <div>
+      <app-crud-form></app-crud-form>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div>
+      <button mat-button (click)="drawer.toggle()">Open drawer</button>
+    </div>
+    <button mat-flat-button (click)="findAll()">Find All</button>
+    <button mat-flat-button (click)="save()">Save</button>
+    <button mat-flat-button (click)="find()">Find</button>
+    <button mat-flat-button (click)="update()">Update</button>
+    <button mat-flat-button (click)="delete()">Delete</button>
+      <app-crud-table>
+      </app-crud-table>
+  </mat-drawer-content>
+</mat-drawer-container>

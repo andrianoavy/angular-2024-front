@@ -1,0 +1,42 @@
+<mat-stepper  #stepper>
+  <mat-step [stepControl]="infoDevoirFormGroup">
+    <form [formGroup]="infoDevoirFormGroup">
+      <ng-template matStepLabel>Informations devoir</ng-template>
+      <mat-form-field style="max-width: 500px">
+        <mat-label>Nom</mat-label>
+        <input matInput placeholder="Nom du devoir" formControlName="nomDevoir" required>
+      </mat-form-field>
+      <mat-form-field style="max-width:250px">
+        <mat-label>Date limite de rendu</mat-label>
+        <input matInput formControlName="dateLimite" [matDatepicker]="picker" required>
+        <mat-hint>mois/jour/année</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Suivant</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="elevesFormGroup" label="Elèves concernés">
+    <form [formGroup]="elevesFormGroup">
+      <mat-form-field>
+        <mat-label>Eleves</mat-label>
+        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Terminer</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reinitialiser</button>
+      <button mat-button (click)="save()"></button>
+    </div>
+  </mat-step>
+</mat-stepper>

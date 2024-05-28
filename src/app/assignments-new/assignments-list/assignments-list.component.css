@@ -3,3 +3,8 @@
   gap: .5rem;
   flex-direction: column;
 }
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+}

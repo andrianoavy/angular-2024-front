@@ -8,11 +8,13 @@ import { MatList, MatListItem } from '@angular/material/list';
 import { ROLE } from '../../shared/role.enum';
 import { AssignmentsListItemStudentComponent } from '../assignments-list-item-student/assignments-list-item-student.component';
 import { AutorizationService } from '../../autorization.service';
+import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-assignments-list',
   standalone: true,
-  imports: [AsyncPipe, AssignmentsListItemStudentComponent, AssignmentsListItemComponent, MatList, MatListItem],
+  imports: [RouterLink, MatButtonModule, AsyncPipe, AssignmentsListItemStudentComponent, AssignmentsListItemComponent, MatList, MatListItem],
   templateUrl: './assignments-list.component.html',
   styleUrl: './assignments-list.component.css'
 })

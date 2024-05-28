@@ -51,6 +51,10 @@ export class AssignmentsNewService {
     return true;
   }
 
+  save() {
+
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

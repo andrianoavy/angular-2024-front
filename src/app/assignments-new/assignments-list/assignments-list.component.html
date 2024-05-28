@@ -1,4 +1,7 @@
+<div class="list-header">
 <h2>Liste des devoirs</h2>
+<a mat-flat-button routerLink="/new/add" color="primary">Nouveau devoir</a>
+</div>
 <div class="assignments-list">
   @for(a of assignments | async; track a.nom) {
     @if(isStudent){

@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import { CrudTableComponent } from '../shared/components/crud-table/crud-table.component';
-import { CrudFormComponent } from '../shared/components/crud-form/crud-form.component';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { StudentsService } from '../shared/students.service';
 import { Auteur } from '../assignments-new/auteur.model';
+import { MatTableModule } from '@angular/material/table';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-students',
@@ -12,46 +15,94 @@ import { Auteur } from '../assignments-new/auteur.model';
   imports: [
     MatSidenavModule,
     MatButtonModule,
-    CrudTableComponent,
-    CrudFormComponent,
+    MatTableModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
   ],
   templateUrl: './students.component.html',
   styleUrl: './students.component.css'
 })
-export class StudentsComponent {
+export class StudentsComponent implements OnInit, AfterViewInit {
+  student: Auteur = { id: '', nom: '', group: '' };
+  displayedColumns: string[] = ['_id', 'nom', 'group', 'actions']
+  dataSource!: Auteur[];
 
-  student?: Auteur;
+  @ViewChild(MatDrawer) drawer!: MatDrawer;
 
-  constructor(private service:StudentsService){}
+  constructor(private service: StudentsService) { }
+
+  ngOnInit(): void {
+    this.fetchData();
+  }
+
+  fetchData(): void {
+    this.service.findAll().subscribe(data => {
+      this.dataSource = data;
+      this.closeReset();
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.drawer.closedStart.subscribe(() => {
+      this.resetForm();
+    })
+  }
+
+  resetForm() {
+    this.student = { id: '', nom: '', group: '' };
+  }
+
+  closeReset() {
+    this.resetForm();
+    this.drawer.close();
+  }
+
+  newEntry() {
+    this.resetForm();
+    this.drawer.open();
+  }
+
+  delete(id: any) {
+    this.service.delete(id).subscribe(data => {
+      console.log("Find");
+      console.log(data);
+      this.fetchData();
+    });
+  }
+
   findAll() {
-    this.service.findAll().subscribe(data=>{
+    this.service.findAll().subscribe(data => {
       console.log("Find");
       console.log(data);
     });
   }
+
   save() {
-    this.service.save({id:"69",nom:"Tota"} as Auteur).subscribe(data=>{
+    //valeur de test
+    this.student.id = "" + Math.random() * 100;
+    this.service.save(this.student).subscribe(data => {
       console.log("Save");
       console.log(data);
       this.student = data;
+      this.fetchData();
     });
   }
-  find() {
-    this.service.findById("69").subscribe(data=>{
-      console.log("FindById");
-      console.log(data);
-    });
+
+  showUpdateForm(id: any) {
+    const entry = this.dataSource.find(s => s.id == id) ?? this.student;
+    this.student = {...entry};
+    this.drawer.open();
   }
+
   update() {
-    this.service.update("69",{id:"69", nom:"Toto"} as Auteur).subscribe(data=>{
+    this.service.update(this.student.id, this.student).subscribe(data => {
       console.log("Update");
       console.log(data);
+      this.fetchData();
     });
   }
-  delete() {
-    this.service.delete("69").subscribe(data=>{
-      console.log("Delete");
-      console.log(data);
-    })
-  }
+
 }

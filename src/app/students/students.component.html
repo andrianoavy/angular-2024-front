@@ -1,19 +1,56 @@
 <mat-drawer-container hasBackdrop="false" class="example-container" style="min-height: 90vh; min-height:90dvh">
-  <mat-drawer #drawer position="end">
+  <mat-drawer #drawer position="end" fixedInViewPort mat-sidenav>
     <div>
-      <app-crud-form></app-crud-form>
+      <h3>Formulaire</h3>
+      <form class="upsert-form">
+        <ng-template matStepLabel>Informations devoir</ng-template>
+        @if(student!.id){
+        <p>Numero: <b>{{student.id}}</b></p>
+        }
+        <mat-form-field style="max-width: 500px">
+          <mat-label>Nom</mat-label>
+          <input matInput placeholder="Nom" [(ngModel)]="student.nom" name="nom" required>
+        </mat-form-field>
+        <mat-form-field style="max-width: 500px">
+          <mat-label>Groupe</mat-label>
+          <input matInput placeholder="Nom du groupe" name="group" [(ngModel)]="student.group" required>
+        </mat-form-field>
+        <div>
+          <button color="primary" (click)="(student.id)?update():save()" mat-flat-button>Enregistrer</button>
+          <button (click)="closeReset()" mat-flat-button>Annuler</button>
+        </div>
+      </form>
     </div>
   </mat-drawer>
   <mat-drawer-content>
-    <div>
-      <button mat-button (click)="drawer.toggle()">Open drawer</button>
+    <div style="display:flex; justify-content: end; margin: .5rem; gap:.2rem;">
+      <button mat-outlined-button aria-label="Recharger" title="Recharger" (click)="fetchData()"><mat-icon>refresh</mat-icon></button>
+      <button mat-flat-button color="primary" (click)="newEntry()">Nouveau</button>
     </div>
-    <button mat-flat-button (click)="findAll()">Find All</button>
-    <button mat-flat-button (click)="save()">Save</button>
-    <button mat-flat-button (click)="find()">Find</button>
-    <button mat-flat-button (click)="update()">Update</button>
-    <button mat-flat-button (click)="delete()">Delete</button>
-      <app-crud-table>
-      </app-crud-table>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="_id">
+        <th mat-header-cell *matHeaderCellDef> N. </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="nom">
+        <th mat-header-cell *matHeaderCellDef> nom </th>
+        <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
+      </ng-container>
+      <ng-container matColumnDef="group">
+        <th mat-header-cell *matHeaderCellDef> groupe </th>
+        <td mat-cell *matCellDef="let element"> {{element.group}} </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> actions </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button (click)="showUpdateForm(element.id)">Modifier</button>
+          <button mat-button color="warn" (click)="delete(element.id)">Supprimer</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
   </mat-drawer-content>
 </mat-drawer-container>

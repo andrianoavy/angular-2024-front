@@ -5,3 +5,10 @@ form {
   padding-top:1rem;
 }
 
+dd {
+  font-weight: 500;
+}
+dt {
+  padding-top: .4rem
+}
+

@@ -252,6 +252,19 @@
       "dateLimite": "2024-05-30T21:00:00.000Z",
       "rendus": [],
       "nonRendus": []
+    },
+    {
+      "id": "92c2",
+      "nom": "Test",
+      "dateLimite": "2024-05-30T21:00:00.000Z",
+      "matiere": {
+        "_id": "1",
+        "nom": "Developpement d'application full stack en grails et REST Api.",
+        "responsable": "Gregori Galli",
+        "id": "63fc"
+      },
+      "rendus": [],
+      "nonRendus": []
     }
   ],
   "students": [
@@ -625,7 +638,7 @@
     },
     {
       "_id": "3",
-      "nom": "Developpement application full stack angular et node",
+      "nom": "Développement d'application full stack angular et node",
       "responsable": "Michel Buffa",
       "id": "ca31"
     }

@@ -613,7 +613,7 @@
   "matieres": [
     {
       "_id": "1",
-      "nom": "Developpement d'application full stack en grails et REST Api",
+      "nom": "Developpement d'application full stack en grails et REST Api.",
       "responsable": "Gregori Galli",
       "id": "63fc"
     },

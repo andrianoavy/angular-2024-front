@@ -1,0 +1,13 @@
+import { Injectable } from '@angular/core';
+import { Matiere } from '../assignments-new/matiere.model';
+import { CrudApiService } from './crud-api.service';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MatieresService extends CrudApiService<Matiere> {
+  override url: string = "http://10.42.0.1:3000/matieres";
+
+  constructor(public http: HttpClient) { super(); }
+}

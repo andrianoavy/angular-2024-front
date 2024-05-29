@@ -1,0 +1,16 @@
+mat-drawer {
+  padding:1rem 1.5rem;
+  min-width: 400px;
+}
+
+mat-drawer-content {
+  height: 100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+.upsert-form {
+  display:flex;
+  flex-direction:column;
+}
+

@@ -16,13 +16,13 @@ endif
 badd +1 ~/itu/mbds/angular/front
 badd +10 src/app/assignments-new/assignments-new.component.ts
 badd +1 src/app/assignments-new/assignments-new.component.html
-badd +18 src/app/assignments-new/assignments-list/assignments-list.component.ts
+badd +25 src/app/assignments-new/assignments-list/assignments-list.component.ts
 badd +6 src/app/assignments-new/assignments-list/assignments-list.component.html
 badd +38 src/app/shared/assignments-new.service.ts
-badd +10 src/app/app.routes.ts
+badd +12 src/app/app.routes.ts
 badd +19 src/app/assignments-new/assignments-list-item/assignments-list-item.component.ts
 badd +10 src/app/assignments-new/assignments-list-item/assignments-list-item.component.html
-badd +11 data/db.json
+badd +77 data/db.json
 badd +9 src/app/assignments-new/assignments-list-item/assignments-list-item.component.css
 badd +1 src/app/assignments-new/assignments-new.model.ts
 badd +4 src/app/shared/role.enum.ts
@@ -40,17 +40,45 @@ badd +1 src/app/assignments-new/rendu-dialog/rendu-dialog.component.css
 badd +6 src/app/assignments-new/annuler-rendu-dialog/annuler-rendu-dialog.component.html
 badd +10 src/app/assignments-new/annuler-rendu-dialog/annuler-rendu-dialog.component.css
 badd +16 src/app/assignments-new/annuler-rendu-dialog/annuler-rendu-dialog.component.ts
-badd +18 src/app/students/students.component.ts
-badd +11 src/app/shared/components/crud-table/crud-table.component.ts
-badd +3 src/app/shared/components/crud-form/crud-form.component.ts
-badd +1 src/app/students/students.component.html
-badd +1 src/app/students/students.component.css
+badd +25 src/app/students/students.component.ts
+badd +6 src/app/students/students.component.html
+badd +4 src/app/assignments-new/add-assignment/add-assignment.component.html
+badd +43 src/app/assignments-new/add-assignment/add-assignment.component.ts
+badd +3 src/app/shared/students.service.ts
+badd +3 src/app/students/students.component.css
+badd +2 src/app/assignments-new/auteur.model.ts
+badd +4 src/app/assignments/assignments.component.ts
+badd +25 src/app/matieres/matieres.component.ts
+badd +5 src/app/shared/matieres.service.ts
+badd +4 src/app/assignments-new/matiere.model.ts
+badd +12 src/app/matieres/matieres.component.html
+badd +12 src/app/matieres/matieres.component.css
+badd +12 src/app/assignments-new/add-assignment/add-assignment.component.css
+badd +3 src/app/shared/validators/require-match.ts
 argglobal
 %argdel
 $argadd ~/itu/mbds/angular/front
-edit src/app/students/students.component.ts
+edit src/app/assignments-new/add-assignment/add-assignment.component.html
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe 'vert 1resize ' . ((&columns * 78 + 40) / 80)
+exe 'vert 2resize ' . ((&columns * 1 + 40) / 80)
 argglobal
-balt src/app/students/students.component.html
+balt src/app/assignments-new/add-assignment/add-assignment.component.ts
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -61,13 +89,40 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 25 - ((24 * winheight(0) + 20) / 40)
+let s:l = 4 - ((1 * winheight(0) + 10) / 20)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 25
-normal! 038|
+keepjumps 4
+normal! 028|
 lcd ~/itu/mbds/angular/front
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/itu/mbds/angular/front/src/app/assignments-new/add-assignment/add-assignment.component.css", ":p")) | buffer ~/itu/mbds/angular/front/src/app/assignments-new/add-assignment/add-assignment.component.css | else | edit ~/itu/mbds/angular/front/src/app/assignments-new/add-assignment/add-assignment.component.css | endif
+if &buftype ==# 'terminal'
+  silent file ~/itu/mbds/angular/front/src/app/assignments-new/add-assignment/add-assignment.component.css
+endif
+balt ~/itu/mbds/angular/front/src/app/assignments-new/add-assignment/add-assignment.component.ts
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 12 - ((11 * winheight(0) + 10) / 20)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 12
+normal! 020|
+lcd ~/itu/mbds/angular/front
+wincmd w
+exe 'vert 1resize ' . ((&columns * 78 + 40) / 80)
+exe 'vert 2resize ' . ((&columns * 1 + 40) / 80)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -75,6 +130,8 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
+let &winminheight = s:save_winminheight
+let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)

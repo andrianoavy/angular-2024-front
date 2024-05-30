@@ -7,7 +7,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StudentsService extends CrudApiService<Student> {
-  override url: string = "http://10.42.0.1:3000/students";
+  // override url: string = "http://10.42.0.1:3000/students";
+  override url: string = "http://10.42.0.1:8010/api/etudiants";
 
   constructor(public http:HttpClient) { super(); }
 }

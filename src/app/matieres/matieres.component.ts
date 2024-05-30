@@ -98,7 +98,7 @@ export class MatieresComponent implements OnInit, AfterViewInit {
   }
 
   update() {
-    this.service.update(this.matiere.id, this.matiere).subscribe(data => {
+    this.service.update(this.matiere).subscribe(data => {
       console.log("Update");
       console.log(data);
       this.fetchData();

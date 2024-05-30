@@ -7,7 +7,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class MatieresService extends CrudApiService<Matiere> {
-  override url: string = "http://10.42.0.1:3000/matieres";
+  // override url: string = "http://10.42.0.1:3000/matieres";
+  override url: string = "http://10.42.0.1:8010/api/matieres";
 
   constructor(public http: HttpClient) { super(); }
 }

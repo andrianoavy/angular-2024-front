@@ -39,8 +39,8 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   }
 
   fetchData(): void {
-    this.service.findAll().subscribe(data => {
-      this.dataSource = data;
+    this.service.findAll().subscribe(response => {
+      this.dataSource = response.docs;
       this.closeReset();
     });
   }
@@ -81,24 +81,21 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   }
 
   save() {
-    //valeur de test
-    this.student.id = "" + Math.random() * 100;
     this.service.save(this.student).subscribe(data => {
       console.log("Save");
       console.log(data);
-      this.student = data;
       this.fetchData();
     });
   }
 
-  showUpdateForm(id: any) {
-    const entry = this.dataSource.find(s => s.id == id) ?? this.student;
+  showUpdateForm(_id: any) {
+    const entry = this.dataSource.find(s => s._id == _id) ?? this.student;
     this.student = {...entry};
     this.drawer.open();
   }
 
   update() {
-    this.service.update(this.student.id, this.student).subscribe(data => {
+    this.service.update(this.student).subscribe(data => {
       console.log("Update");
       console.log(data);
       this.fetchData();

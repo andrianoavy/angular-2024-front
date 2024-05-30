@@ -36,11 +36,6 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatDrawer) drawer!: MatDrawer;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   totalDocs!: number;
-  totalPages!: number;
-  nextPage!: number;
-  prevPage!: number;
-  hasNextPage!: boolean;
-  hasPrevPage!: boolean;
 
   constructor(private service: StudentsService) { }
 
@@ -48,30 +43,21 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   }
 
   fetchData(): void {
-    this.service.findAll(this.filterControl.value??'', this.paginator.pageIndex, this.paginator.pageSize).subscribe(response => {
-      this.setDataFromResponse(response);
+    this.service.findAll(this.filterControl.value ?? '', this.paginator.pageIndex, this.paginator.pageSize).subscribe(response => {
+      this.dataSource = response.docs;
+      this.totalDocs = response.totalDocs;
       this.closeReset();
     });
   }
 
   resetTable(): void {
-    this.fetchData();
     this.filterControl.setValue('');
-  }
-
-  setDataFromResponse(response:any) {
-    this.dataSource = response.docs;
-    this.totalDocs = response.totalDocs;
-    this.totalPages = response.totalPages;
-    this.nextPage = response.nextPage;
-    this.prevPage = response.prevPage;
-    this.hasNextPage = response.hasNextPage;
-    this.hasPrevPage = response.hasPrevPage;
+    this.fetchData();
   }
 
   ngAfterViewInit(): void {
     this.paginator.pageIndex = 0
-    this.paginator.pageSize = 0
+    this.paginator.pageSize = 10
     this.fetchData();
     this.filterControl.valueChanges.subscribe(value => {
       if (value && value.length > 1)

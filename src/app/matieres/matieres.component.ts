@@ -8,6 +8,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-matieres',
@@ -20,7 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatPaginatorModule
   ],
   templateUrl: './matieres.component.html',
   styleUrl: './matieres.component.css'
@@ -32,29 +34,38 @@ export class MatieresComponent implements OnInit, AfterViewInit {
   filterControl = new FormControl('');
 
   @ViewChild(MatDrawer) drawer!: MatDrawer;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  totalDocs!: number;
 
   constructor(private service: MatieresService) { }
 
   ngOnInit(): void {
-    this.fetchData();
-    this.filterControl.valueChanges.subscribe(
-      (value) => {
-        if(value && value.length > 2) {
-          this.service.findAll(value).subscribe(data => this.dataSource = data.docs)
-        }
-      }
-    );
   }
 
   fetchData(): void {
-    this.service.findAll().subscribe(response => {
+    this.service.findAll(this.filterControl.value??'', this.paginator.pageIndex, this.paginator.pageSize).subscribe(response => {
       this.dataSource = response.docs;
-      this.filterControl.setValue('');
+      this.totalDocs = response.totalDocs;
       this.closeReset();
     });
   }
 
+  resetTable(): void {
+    this.filterControl.setValue('');
+    this.fetchData();
+  }
+
   ngAfterViewInit(): void {
+    this.paginator.pageIndex = 0
+    this.paginator.pageSize = 10
+    this.fetchData();
+    this.filterControl.valueChanges.subscribe(
+      (value) => {
+        if (value && value.length > 2) {
+          this.fetchData()
+        }
+      }
+    );
     this.drawer.closedStart.subscribe(() => {
       this.resetForm();
     })
@@ -100,7 +111,7 @@ export class MatieresComponent implements OnInit, AfterViewInit {
 
   showUpdateForm(id: any) {
     const entry = this.dataSource.find(s => s._id == id) ?? this.matiere;
-    this.matiere = {...entry};
+    this.matiere = { ...entry };
     this.drawer.open();
   }
 
@@ -112,4 +123,8 @@ export class MatieresComponent implements OnInit, AfterViewInit {
     });
   }
 
+  // Pour le composant angular material paginator
+  handlePageEvent(event: PageEvent) {
+    this.fetchData();
+  }
 }

@@ -4,7 +4,7 @@ import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { StudentsService } from '../shared/students.service';
 import { Auteur } from '../assignments-new/auteur.model';
 import { MatTableModule } from '@angular/material/table';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,6 +29,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   student: Auteur = { id: '', nom: '', group: '' };
   displayedColumns: string[] = ['_id', 'nom', 'group', 'actions']
   dataSource!: Auteur[];
+  filterControl = new FormControl('');
 
   @ViewChild(MatDrawer) drawer!: MatDrawer;
 
@@ -36,11 +37,18 @@ export class StudentsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.fetchData();
+    this.filterControl.valueChanges.subscribe(value => {
+      if(value && value.length >2)
+      this.service.findAll(value).subscribe(data => {
+        this.dataSource = data.docs
+      });
+    });
   }
 
   fetchData(): void {
     this.service.findAll().subscribe(response => {
       this.dataSource = response.docs;
+      this.filterControl.setValue('');
       this.closeReset();
     });
   }

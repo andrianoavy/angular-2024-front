@@ -17,18 +17,19 @@ export abstract class CrudApiService<TModel> {
   public findById(id: any): Observable<any> {
     return this.http.get(`${this.url}/${id}`);
   }
-  public findAll(page?: number, items?: number): Observable<any> {
-    let params = []
+  public findAll(search?: string, page?: number, items?: number): Observable<any> {
+    let requestURL = new URL(this.url);
+    if (search) {
+      requestURL.searchParams.append('search', search!);
+    }
     if (page) {
-      params.push(`page=${page}`);
+      requestURL.searchParams.append('page', String(page!));
     }
     if (items) {
-      params.push(`items=${items}`);
+      requestURL.searchParams.append('items', String(items!));
     }
 
-    const requestUrl = `${this.url}${(params.length > 0) ? '?' : ''}${params.join('&')}`;
-
-    return this.http.get(requestUrl);
+    return this.http.get(requestURL.toString());
   }
 
   public update(entry: TModel): Observable<any> {

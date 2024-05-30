@@ -14,6 +14,7 @@ export class MatieresService extends CrudApiService<Matiere> {
 findByText(searchText: string) {
     const requestUrl = new URL(this.url);
     requestUrl.searchParams.append('search', searchText);
+    requestUrl.searchParams.append('no-paging', String(1));
     return this.http.get(requestUrl.toString());
   }
 }

@@ -4,7 +4,7 @@ import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatieresService } from '../shared/matieres.service';
 import { Matiere } from '../assignments-new/matiere.model';
 import { MatTableModule } from '@angular/material/table';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,6 +29,7 @@ export class MatieresComponent implements OnInit, AfterViewInit {
   matiere: Matiere = { _id: '', nom: '', responsable: '' };
   displayedColumns: string[] = ['id', 'nom', 'responsable', 'actions']
   dataSource!: Matiere[];
+  filterControl = new FormControl('');
 
   @ViewChild(MatDrawer) drawer!: MatDrawer;
 
@@ -36,11 +37,19 @@ export class MatieresComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.fetchData();
+    this.filterControl.valueChanges.subscribe(
+      (value) => {
+        if(value && value.length > 2) {
+          this.service.findAll(value).subscribe(data => this.dataSource = data.docs)
+        }
+      }
+    );
   }
 
   fetchData(): void {
     this.service.findAll().subscribe(response => {
       this.dataSource = response.docs;
+      this.filterControl.setValue('');
       this.closeReset();
     });
   }

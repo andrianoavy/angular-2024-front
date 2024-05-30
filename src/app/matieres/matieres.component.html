@@ -10,7 +10,8 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>Responsable</mat-label>
-          <input matInput placeholder="Nom du responsable" name="responsable" [(ngModel)]="matiere.responsable" required>
+          <input matInput placeholder="Nom du responsable" name="responsable" [(ngModel)]="matiere.responsable"
+            required>
         </mat-form-field>
         <div>
           <button color="primary" (click)="(matiere._id)?update():save()" mat-flat-button>Enregistrer</button>
@@ -21,7 +22,9 @@
   </mat-drawer>
   <mat-drawer-content>
     <div style="display:flex; justify-content: end; margin: .5rem; gap:.2rem;">
-      <button mat-outlined-button aria-label="Recharger" title="Recharger" (click)="fetchData()"><mat-icon>refresh</mat-icon></button>
+        <input matInput style="flex-grow:1" [formControl]="filterControl" placeholder="Filtrer par nom ou nom du responsable...">
+      <button mat-outlined-button aria-label="Recharger" title="Recharger"
+        (click)="fetchData()"><mat-icon>refresh</mat-icon></button>
       <button mat-flat-button color="primary" (click)="newEntry()">Nouveau</button>
     </div>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">

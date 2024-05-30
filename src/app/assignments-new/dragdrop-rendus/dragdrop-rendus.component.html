@@ -24,7 +24,9 @@
         @if(devoir.remarques && devoir.remarques.length){
         <a mat-button (click)="toggleRemarques(devoir.remarques)" color="primary">Remarques</a>
         }
-
+        @else{
+          <span style="font-size: .8em;">Pas de remarques</span>
+        }
       </div>
       }
     </div>

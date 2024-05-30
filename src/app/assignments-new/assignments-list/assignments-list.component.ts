@@ -31,8 +31,10 @@ export class AssignmentsListComponent implements OnInit {
   fetchData() {
     switch (this.autorization.getRole()) {
       case ROLE.Student:
-        this.service.getAssignmentsStudents().subscribe((response) => {
-          this.assignments = response;
+        this.service.getAssignmentsStudents(testStudent2).subscribe((response) => {
+          this.assignments = response.docs as any;
+          console.log(this.assignments);
+
         });
         break;
       default:
@@ -43,3 +45,6 @@ export class AssignmentsListComponent implements OnInit {
     }
   }
 }
+
+const testStudent1 = '6658621178b457da0f9fb143'; // a des devoirs
+const testStudent2 = '6658765957d710f5ab626638'; // n'a pas de devoirs

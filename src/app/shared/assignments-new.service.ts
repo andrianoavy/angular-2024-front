@@ -16,12 +16,17 @@ export class AssignmentsNewService {
 
   constructor(private http: HttpClient) { }
 
-  getAssignmentsStudents(): Observable<Assignment[]> {
-    return this.http.get<Assignment[]>(this.urlStudent)
+  getAssignmentsStudents(id:string): Observable<any> {
+    let requestUrl = new URL(this.url);
+    requestUrl.searchParams.append('role', 'etudiant');
+    requestUrl.searchParams.append('idEtudiant', id);
+
+    return this.http.get(requestUrl.toString())
       .pipe(
-        catchError(this.handleError('getAssigments', [] as Assignment[]))
+        catchError(this.handleError('getAssigments', {}))
       );
   }
+
   findAll(): Observable<any> {
     return this.http.get(this.url)
       .pipe(

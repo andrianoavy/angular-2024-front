@@ -11,4 +11,7 @@
     <app-assignments-list-item [assignment]="a"/>
       }
   }
+  @if(!assignments?.length){
+    <p>Pas encore de devoir assignés</p>
+  }
 </div>

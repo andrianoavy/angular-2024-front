@@ -16,7 +16,7 @@
     </dl>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button (click)="toggleDetails()" color="primary">DETAILS</button>
+    <button mat-raised-button (click)="toggleDetails()" [color]="(showDetails)?'default':'primary'">{{(showDetails)?"Voir moins":"Afficher les résultats"}}</button>
   </mat-card-actions>
   }
 </mat-card>

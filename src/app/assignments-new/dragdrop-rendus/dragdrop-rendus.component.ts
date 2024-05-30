@@ -34,22 +34,27 @@ export class DragdropRendusComponent {
       let current = event.previousContainer.data[event.previousIndex];
       if (event.previousContainer.data === this.rendus) {
         //mettre le devoir a non rendus => supprimer les notes et remarques et dateRendu
-        this.openAnnulerRenduDialog(current, () => {
-          this.service.annulerRendu(this.assignmentId, current);
-          transferArrayItem(event.previousContainer.data,
-            event.container.data,
-            event.previousIndex,
-            event.currentIndex);
-        });
+        console.log(`Operation non permise`);
+
+        // this.openAnnulerRenduDialog(current, () => {
+        //   this.service.annulerRendu(this.assignmentId, current);
+        //   transferArrayItem(event.previousContainer.data,
+        //     event.container.data,
+        //     event.previousIndex,
+        //     event.currentIndex);
+        // });
       }
       else {
         //mettre le devoir en rendus => entrer notes date et remarques dans le formulaire
         this.openRenduDialog(current, () => {
-          this.service.rendreAssignment(this.assignmentId, current);
-          transferArrayItem(event.previousContainer.data,
-            event.container.data,
-            event.previousIndex,
-            event.currentIndex);
+
+          this.service.noter({...current, assignmentId: this.assignmentId}).subscribe((response) => {
+            console.log(response);
+            transferArrayItem(event.previousContainer.data,
+              event.container.data,
+              event.previousIndex,
+              event.currentIndex);
+          });
         });
       }
     }
@@ -70,7 +75,7 @@ export class DragdropRendusComponent {
   openRenduDialog(auteur: Auteur, doOnClosed: () => void): void {
     const dialogRef = this.dialog.open<DialogData>(RenduDialogComponent, {
       data: { note: auteur.note, date: auteur.dateDeRendu, remarques: auteur.remarques },
-      minWidth:'250px'
+      minWidth: '250px'
     });
 
     dialogRef.closed.subscribe(result => {
@@ -86,6 +91,6 @@ export class DragdropRendusComponent {
   }
 
   toggleRemarques(remarques: string[]) {
-    this.dialog.open<string[]>(RemarquesDialogComponent, {data:remarques, minWidth:'250px', maxWidth:'80vw'});
+    this.dialog.open<string[]>(RemarquesDialogComponent, { data: remarques, minWidth: '250px', maxWidth: '80vw' });
   }
 }

@@ -17,6 +17,7 @@ import { MatieresService } from '../../shared/matieres.service';
 import { Matiere } from '../matiere.model';
 import { requireMatch } from '../../shared/validators/require-match';
 import { StudentsService } from '../../shared/students.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-assignment',
@@ -54,11 +55,14 @@ export class AddAssignmentComponent {
     dateLimite: ['', Validators.required],
   });
 
-  elevesFormGroup = this._formBuilder.group({
-    group: ['', Validators.required],
-  });
+  elevesControl = new FormControl('', Validators.required);
 
-  constructor(private _studentService: StudentsService, private _assignmentService: AssignmentsNewService, private _matiereService: MatieresService, private _formBuilder: FormBuilder) { }
+  constructor(
+    private router: Router,
+    private _studentService: StudentsService,
+    private _assignmentService: AssignmentsNewService,
+    private _matiereService: MatieresService,
+    private _formBuilder: FormBuilder) { }
 
   filteredOptions!: Observable<Matiere[]>;
 
@@ -91,23 +95,25 @@ export class AddAssignmentComponent {
     }
   }
 
-    displayFn(matiere: Matiere): string {
-      return matiere && matiere.nom ? matiere.nom : '';
-    }
-
-    save() {
-      if (this.infoDevoirFormGroup.invalid || this.elevesFormGroup.invalid) {
-        return;
-      }
-      let assignment = {
-        nom: this.infoDevoirFormGroup.get('nomDevoir')!.value,
-        dateLimite: new Date(this.infoDevoirFormGroup.get('dateLimite')!.value!),
-        matiere: this.infoDevoirFormGroup.controls['matiere'].value as unknown,
-        rendus: [],
-        nonRendus: []
-      } as Assignment;
-      this._assignmentService.save(assignment).subscribe(response => {
-        console.log(response);
-      });
-    }
+  displayFn(matiere: Matiere): string {
+    return matiere && matiere.nom ? matiere.nom : '';
   }
+
+  save() {
+    if (this.infoDevoirFormGroup.invalid || this.elevesControl.invalid) {
+      return;
+    }
+    let assignment = {
+      nom: this.infoDevoirFormGroup.get('nomDevoir')!.value,
+      dateLimite: new Date(this.infoDevoirFormGroup.get('dateLimite')!.value!),
+      matiere: this.infoDevoirFormGroup.controls['matiere'].value as unknown,
+      rendus: [],
+      nonRendus: [],
+      group: this.elevesControl.value
+    } as any;
+    this._assignmentService.save(assignment).subscribe(response => {
+      console.log(response);
+      this.router.navigate(['/new/assignment']);
+    });
+  }
+}

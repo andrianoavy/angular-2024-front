@@ -9,6 +9,7 @@ import { Auteur } from '../assignments-new/auteur.model';
   providedIn: 'root'
 })
 export class AssignmentsNewService {
+  private url = 'http://10.42.0.1:8010/api/assignments';
   private urlStudent = 'http://10.42.0.1:3000/assignments-students';
   private urlProf = 'http://10.42.0.1:3000/assignments-profs';
   private urlAdmin = 'http://10.42.0.1:3000/assignments-admin';
@@ -21,14 +22,8 @@ export class AssignmentsNewService {
         catchError(this.handleError('getAssigments', [] as Assignment[]))
       );
   }
-  getAssignmentsProfs(): Observable<Assignment[]> {
-    return this.http.get<Assignment[]>(this.urlProf)
-      .pipe(
-        catchError(this.handleError('getAssigments', [] as Assignment[]))
-      );
-  }
-  getAssignmentsAdmin(): Observable<Assignment[]> {
-    return this.http.get<Assignment[]>(this.urlAdmin)
+  findAll(): Observable<any> {
+    return this.http.get(this.url)
       .pipe(
         catchError(this.handleError('getAssigments', [] as Assignment[]))
       );
@@ -53,8 +48,13 @@ export class AssignmentsNewService {
 
   save(assignment: Assignment): Observable<Assignment | null> {
     console.log(assignment);
-    return this.http.post<Assignment>(this.urlAdmin, {...assignment}).pipe(catchError(this.handleError('save', null)));
+    return this.http.post<Assignment>(this.url, { ...assignment }).pipe(catchError(this.handleError('save', null)));
   }
+
+  noter(etudiant: any){
+    return this.http.put(`${this.url}/noter`, etudiant).pipe(catchError(this.handleError('save', null)));
+  }
+
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

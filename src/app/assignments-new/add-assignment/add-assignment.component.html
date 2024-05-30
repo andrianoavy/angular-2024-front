@@ -31,11 +31,11 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="elevesFormGroup" label="Elèves concernés">
-    <form [formGroup]="elevesFormGroup">
+  <mat-step [stepControl]="elevesControl" label="Elèves concernés">
+    <form>
       <mat-form-field style="max-width: 250px">
         <mat-label>Groupes</mat-label>
-        <mat-select formControlName="group" multiple>
+        <mat-select [formControl]="elevesControl" multiple>
           @for (group of groupOptions; track group) {
           <mat-option [value]="group">{{group}}</mat-option>
           }
@@ -58,7 +58,7 @@
       <dt>Date limite</dt>
       <dd>{{infoDevoirFormGroup.controls['dateLimite'].value | date}}</dd>
       <dt>Groupes concernés</dt>
-      <dd>{{elevesFormGroup.controls['group'].value}}</dd>
+      <dd>{{elevesControl.value}}</dd>
     </dl>
     <div>
       <button mat-button matStepperPrevious>Retour</button>

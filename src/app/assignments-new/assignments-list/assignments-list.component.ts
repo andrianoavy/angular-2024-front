@@ -1,8 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AssignmentsNewService } from '../../shared/assignments-new.service';
 import { Assignment } from '../assignments-new.model';
-import { Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
 import { AssignmentsListItemComponent } from '../assignments-list-item/assignments-list-item.component';
 import { MatList, MatListItem } from '@angular/material/list';
 import { ROLE } from '../../shared/role.enum';
@@ -14,14 +12,14 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-assignments-list',
   standalone: true,
-  imports: [RouterLink, MatButtonModule, AsyncPipe, AssignmentsListItemStudentComponent, AssignmentsListItemComponent, MatList, MatListItem],
+  imports: [RouterLink, MatButtonModule, AssignmentsListItemStudentComponent, AssignmentsListItemComponent, MatList, MatListItem],
   templateUrl: './assignments-list.component.html',
   styleUrl: './assignments-list.component.css'
 })
 export class AssignmentsListComponent implements OnInit {
 
   isStudent!: boolean;
-  assignments?: Observable<Assignment[]>;
+  assignments?: Assignment[];
 
   constructor(private autorization: AutorizationService, private service: AssignmentsNewService) { }
 
@@ -33,15 +31,14 @@ export class AssignmentsListComponent implements OnInit {
   fetchData() {
     switch (this.autorization.getRole()) {
       case ROLE.Student:
-        this.assignments = this.service.getAssignmentsStudents();
-        break;
-      case ROLE.Prof:
-        this.assignments = this.service.getAssignmentsProfs();
-        break;
-      case ROLE.Admin:
-        this.assignments = this.service.getAssignmentsAdmin();
+        this.service.getAssignmentsStudents().subscribe((response) => {
+          this.assignments = response;
+        });
         break;
       default:
+        this.service.findAll().subscribe((response) => {
+          this.assignments = response.docs;
+        });
         break;
     }
   }

@@ -3,7 +3,7 @@
 <a mat-flat-button routerLink="/new/add" color="primary">Nouveau devoir</a>
 </div>
 <div class="assignments-list">
-  @for(a of assignments | async; track a.nom) {
+  @for(a of assignments; track a.nom) {
     @if(isStudent){
     <app-assignments-list-item-student [assignment]="a"/>
       }

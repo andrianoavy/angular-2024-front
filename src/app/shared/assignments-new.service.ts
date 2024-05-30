@@ -55,6 +55,10 @@ export class AssignmentsNewService {
     return this.http.put(`${this.url}/noter`, etudiant).pipe(catchError(this.handleError('save', null)));
   }
 
+  annulerNote(etudiant: any){
+    return this.http.put(`${this.url}/annuler-note`, etudiant).pipe(catchError(this.handleError('save', null)));
+  }
+
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

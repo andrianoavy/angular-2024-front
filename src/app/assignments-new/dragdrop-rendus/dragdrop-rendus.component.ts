@@ -34,15 +34,16 @@ export class DragdropRendusComponent {
       let current = event.previousContainer.data[event.previousIndex];
       if (event.previousContainer.data === this.rendus) {
         //mettre le devoir a non rendus => supprimer les notes et remarques et dateRendu
-        console.log(`Operation non permise`);
 
-        // this.openAnnulerRenduDialog(current, () => {
-        //   this.service.annulerRendu(this.assignmentId, current);
-        //   transferArrayItem(event.previousContainer.data,
-        //     event.container.data,
-        //     event.previousIndex,
-        //     event.currentIndex);
-        // });
+        this.openAnnulerRenduDialog(current, () => {
+          this.service.annulerNote({...current, assignmentId: this.assignmentId}).subscribe((response) => {
+            console.log(response);
+            transferArrayItem(event.previousContainer.data,
+              event.container.data,
+              event.previousIndex,
+              event.currentIndex);
+          });
+        });
       }
       else {
         //mettre le devoir en rendus => entrer notes date et remarques dans le formulaire

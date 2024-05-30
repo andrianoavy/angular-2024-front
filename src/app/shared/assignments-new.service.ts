@@ -57,13 +57,16 @@ export class AssignmentsNewService {
   }
 
   noter(etudiant: any){
-    return this.http.put(`${this.url}/noter`, etudiant).pipe(catchError(this.handleError('save', null)));
+    return this.http.put(`${this.url}/noter`, etudiant).pipe(catchError(this.handleError('noter', null)));
   }
 
   annulerNote(etudiant: any){
-    return this.http.put(`${this.url}/annuler-note`, etudiant).pipe(catchError(this.handleError('save', null)));
+    return this.http.put(`${this.url}/annuler-note`, etudiant).pipe(catchError(this.handleError('annuler', null)));
   }
 
+  delete(_id: string) {
+    return this.http.delete(`${this.url}/${_id}`).pipe(catchError(this.handleError('delete', null)));
+  }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

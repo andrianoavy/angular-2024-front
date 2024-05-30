@@ -8,7 +8,7 @@
     <app-assignments-list-item-student [assignment]="a"/>
       }
       @else{
-    <app-assignments-list-item [assignment]="a"/>
+    <app-assignments-list-item (deleteEvent)="fetchData()" [assignment]="a"/>
       }
   }
   @if(!assignments?.length){

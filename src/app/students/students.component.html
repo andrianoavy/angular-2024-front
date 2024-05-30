@@ -1,5 +1,5 @@
 <mat-drawer-container class="example-container" style="min-height: 90vh; min-height:90dvh" [hasBackdrop]="false">
-  <mat-drawer #drawer position="end" fixedInViewPort mat-sidenav mode="over" >
+  <mat-drawer #drawer position="end" fixedInViewPort mat-sidenav mode="over">
     <div>
       <h3>Formulaire</h3>
       <form class="upsert-form">
@@ -22,7 +22,8 @@
   <mat-drawer-content>
     <div style="display:flex; justify-content: end; margin: .5rem; gap:.2rem;">
       <input matInput [formControl]="filterControl" placeholder="Filtrer par nom ou groupe..." style="flex-grow:1">
-      <button mat-outlined-button aria-label="Recharger" title="Recharger" (click)="fetchData()"><mat-icon>refresh</mat-icon></button>
+      <button mat-outlined-button aria-label="Recharger" title="Recharger"
+        (click)="resetTable()"><mat-icon>refresh</mat-icon></button>
       <button mat-flat-button color="primary" (click)="newEntry()">Nouveau</button>
     </div>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -49,6 +50,15 @@
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
     </table>
+      <mat-paginator
+        #paginator
+        [length]="totalDocs"
+        [showFirstLastButtons]="true"
+        [pageSizeOptions]="[5, 10, 25]"
+        (page)="handlePageEvent($event)"
+        >
+      </mat-paginator>
   </mat-drawer-content>
 </mat-drawer-container>

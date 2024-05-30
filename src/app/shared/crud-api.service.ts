@@ -17,7 +17,7 @@ export abstract class CrudApiService<TModel> {
   public findById(id: any): Observable<any> {
     return this.http.get(`${this.url}/${id}`);
   }
-  public findAll(search?: string, page?: number, items?: number): Observable<any> {
+  public findAll(search?: string, page?: number, limit?: number): Observable<any> {
     let requestURL = new URL(this.url);
     if (search) {
       requestURL.searchParams.append('search', search!);
@@ -25,8 +25,8 @@ export abstract class CrudApiService<TModel> {
     if (page) {
       requestURL.searchParams.append('page', String(page!));
     }
-    if (items) {
-      requestURL.searchParams.append('items', String(items!));
+    if (limit) {
+      requestURL.searchParams.append('limit', String(limit!));
     }
 
     return this.http.get(requestURL.toString());

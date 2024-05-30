@@ -8,6 +8,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-students',
@@ -21,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatPaginatorModule,
   ],
   templateUrl: './students.component.html',
   styleUrl: './students.component.css'
@@ -32,28 +34,49 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   filterControl = new FormControl('');
 
   @ViewChild(MatDrawer) drawer!: MatDrawer;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  totalDocs!: number;
+  totalPages!: number;
+  nextPage!: number;
+  prevPage!: number;
+  hasNextPage!: boolean;
+  hasPrevPage!: boolean;
 
   constructor(private service: StudentsService) { }
 
   ngOnInit(): void {
-    this.fetchData();
-    this.filterControl.valueChanges.subscribe(value => {
-      if(value && value.length >2)
-      this.service.findAll(value).subscribe(data => {
-        this.dataSource = data.docs
-      });
-    });
   }
 
   fetchData(): void {
-    this.service.findAll().subscribe(response => {
-      this.dataSource = response.docs;
-      this.filterControl.setValue('');
+    this.service.findAll(this.filterControl.value??'', this.paginator.pageIndex, this.paginator.pageSize).subscribe(response => {
+      this.setDataFromResponse(response);
       this.closeReset();
     });
   }
 
+  resetTable(): void {
+    this.fetchData();
+    this.filterControl.setValue('');
+  }
+
+  setDataFromResponse(response:any) {
+    this.dataSource = response.docs;
+    this.totalDocs = response.totalDocs;
+    this.totalPages = response.totalPages;
+    this.nextPage = response.nextPage;
+    this.prevPage = response.prevPage;
+    this.hasNextPage = response.hasNextPage;
+    this.hasPrevPage = response.hasPrevPage;
+  }
+
   ngAfterViewInit(): void {
+    this.paginator.pageIndex = 0
+    this.paginator.pageSize = 0
+    this.fetchData();
+    this.filterControl.valueChanges.subscribe(value => {
+      if (value && value.length > 1)
+        this.fetchData();
+    });
     this.drawer.closedStart.subscribe(() => {
       this.resetForm();
     })
@@ -91,7 +114,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
 
   showUpdateForm(_id: any) {
     const entry = this.dataSource.find(s => s._id == _id) ?? this.student;
-    this.student = {...entry};
+    this.student = { ...entry };
     this.drawer.open();
   }
 
@@ -103,4 +126,8 @@ export class StudentsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  // Pour le composant angular material paginator
+  handlePageEvent(event: PageEvent) {
+    this.fetchData();
+  }
 }

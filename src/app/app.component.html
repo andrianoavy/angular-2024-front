@@ -1,13 +1,29 @@
-<h1>
-  <nav>
-    <a routerLink="/home">{{title}}</a>
-  </nav>
-</h1>
-<mat-slide-toggle (click)="login()" color="primary">Login</mat-slide-toggle>
-<button mat-button (click)="genererDonneesDeTest()">Peupler BD</button>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="over" hasBackdrop="true"
+    style="padding: 1rem .5rem; display:flex; flex: 1 1 auto" [autoFocus]="false">
+    <mat-nav-list style="min-width:30vw; min-width:30dvh;">
+      <a routerLink="new/admin" mat-list-item>Devoirs</a>
+      <a routerLink="matieres" mat-list-item>Matières</a>
+      <a routerLink="students" mat-list-item>Etudiants</a>
+    </mat-nav-list>
+  </mat-drawer>
 
-<router-outlet></router-outlet>
+  <mat-toolbar>
+    <button mat-icon-button aria-label="Menu" (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>{{title}}</span>
+    <span style="flex: 1 1 auto"></span>
+  </mat-toolbar>
+  <mat-slide-toggle (click)="login()" color="primary">Login</mat-slide-toggle>
+  <button mat-button (click)="genererDonneesDeTest()">Peupler BD</button>
+
+  <main style="margin: 2rem 5vw">
+    <router-outlet></router-outlet>
+  </main>
+
+</mat-drawer-container>
+
 <!--
 <app-assignments></app-assignments>
 -->
-

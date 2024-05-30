@@ -1,34 +1,48 @@
-import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { AuthService } from './shared/auth.service';
 import { AssignmentsService } from './shared/assignments.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, RouterLink, MatButtonModule, MatDividerModule,
-            MatIconModule, MatSlideToggleModule,
-            AssignmentsComponent],
+    MatIconModule, MatSlideToggleModule,
+    AssignmentsComponent, MatToolbarModule, MatButtonModule, MatIconModule,
+    MatSidenavModule, MatListModule
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   title = 'Application de gestion des assignments';
 
-  constructor(private authService:AuthService,
-              private assignmentsService: AssignmentsService,
-              private router:Router) {}
+  @ViewChild(MatDrawer) drawer!: MatDrawer;
+
+  constructor(private authService: AuthService,
+    private assignmentsService: AssignmentsService,
+    private router: Router) { }
+
+  ngAfterViewInit(): void {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationStart))
+      .subscribe(() => this.drawer.close())
+  }
 
   login() {
     // on utilise le service d'autentification
     // pour se connecter ou se déconnecter
-    if(!this.authService.loggedIn) {
+    if (!this.authService.loggedIn) {
       this.authService.logIn();
     } else {
       this.authService.logOut();
@@ -45,11 +59,11 @@ export class AppComponent {
 
     // VERSION AVEC Observable
     this.assignmentsService.peuplerBDavecForkJoin()
-    .subscribe(() => {
-      console.log("Données générées, on rafraichit la page pour voir la liste à jour !");
-      window.location.reload();
-      // On devrait pouvoir le faire avec le router, jussqu'à la version 16 ça fonctionnait avec
-      // this.router.navigate(['/home'], {replaceUrl:true});
-    });
+      .subscribe(() => {
+        console.log("Données générées, on rafraichit la page pour voir la liste à jour !");
+        window.location.reload();
+        // On devrait pouvoir le faire avec le router, jussqu'à la version 16 ça fonctionnait avec
+        // this.router.navigate(['/home'], {replaceUrl:true});
+      });
   }
 }

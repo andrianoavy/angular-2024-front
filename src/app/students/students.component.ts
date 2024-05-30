@@ -62,7 +62,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
 
   newEntry() {
     this.resetForm();
-    this.drawer.open();
+    this.drawer.toggle();
   }
 
   delete(id: any) {
@@ -70,13 +70,6 @@ export class StudentsComponent implements OnInit, AfterViewInit {
       console.log("Find");
       console.log(data);
       this.fetchData();
-    });
-  }
-
-  findAll() {
-    this.service.findAll().subscribe(data => {
-      console.log("Find");
-      console.log(data);
     });
   }
 

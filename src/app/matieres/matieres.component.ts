@@ -26,7 +26,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './matieres.component.css'
 })
 export class MatieresComponent implements OnInit, AfterViewInit {
-  matiere: Matiere = { id: '', nom: '', responsable: '' };
+  matiere: Matiere = { _id: '', nom: '', responsable: '' };
   displayedColumns: string[] = ['id', 'nom', 'responsable', 'actions']
   dataSource!: Matiere[];
 
@@ -39,8 +39,8 @@ export class MatieresComponent implements OnInit, AfterViewInit {
   }
 
   fetchData(): void {
-    this.service.findAll().subscribe(data => {
-      this.dataSource = data;
+    this.service.findAll().subscribe(response => {
+      this.dataSource = response.docs;
       this.closeReset();
     });
   }
@@ -52,7 +52,7 @@ export class MatieresComponent implements OnInit, AfterViewInit {
   }
 
   resetForm() {
-    this.matiere = { id: '', nom: '', responsable: '' };
+    this.matiere = { _id: '', nom: '', responsable: '' };
   }
 
   closeReset() {
@@ -81,8 +81,6 @@ export class MatieresComponent implements OnInit, AfterViewInit {
   }
 
   save() {
-    //valeur de test
-    this.matiere.id = "" + Math.random() * 100;
     this.service.save(this.matiere).subscribe(data => {
       console.log("Save");
       console.log(data);
@@ -92,7 +90,7 @@ export class MatieresComponent implements OnInit, AfterViewInit {
   }
 
   showUpdateForm(id: any) {
-    const entry = this.dataSource.find(s => s.id == id) ?? this.matiere;
+    const entry = this.dataSource.find(s => s._id == id) ?? this.matiere;
     this.matiere = {...entry};
     this.drawer.open();
   }

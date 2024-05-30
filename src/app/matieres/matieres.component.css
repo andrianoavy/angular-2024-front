@@ -14,3 +14,6 @@ mat-drawer-content {
   flex-direction:column;
 }
 
+table {
+margin: .5rem;
+}

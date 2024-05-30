@@ -16,6 +16,7 @@ import { Observable, startWith, map } from 'rxjs';
 import { MatieresService } from '../../shared/matieres.service';
 import { Matiere } from '../matiere.model';
 import { requireMatch } from '../../shared/validators/require-match';
+import { StudentsService } from '../../shared/students.service';
 
 @Component({
   selector: 'app-add-assignment',
@@ -43,10 +44,7 @@ import { requireMatch } from '../../shared/validators/require-match';
   styleUrl: './add-assignment.component.css'
 })
 export class AddAssignmentComponent {
-  groupOptions: string[] = [
-    "G1",
-    "G2"
-  ];
+  groupOptions!: string[];
   matiereOptions!: Matiere[];
   matiere: Matiere = { id: '', nom: '', responsable: '' } as Matiere;
 
@@ -60,45 +58,56 @@ export class AddAssignmentComponent {
     group: ['', Validators.required],
   });
 
-  constructor(private assignmentService: AssignmentsNewService, private _matiereService: MatieresService, private _formBuilder: FormBuilder) { }
+  constructor(private _studentService: StudentsService, private _assignmentService: AssignmentsNewService, private _matiereService: MatieresService, private _formBuilder: FormBuilder) { }
 
   filteredOptions!: Observable<Matiere[]>;
 
   ngOnInit() {
-    this._matiereService.findAll().subscribe(
+    this._studentService.getGroups().subscribe(
       (data) => {
-        this.matiereOptions = data;
-        this.filteredOptions = this.infoDevoirFormGroup.controls['matiere'].valueChanges.pipe(
+        this.groupOptions = data as any
+      }
+    );
+    this.infoDevoirFormGroup.controls['matiere'].valueChanges.subscribe((value) => {
+      if (value) {
+        this._filter(value);
+      }
+    }
+    );
+    this._matiereService.findAll().subscribe(
+      (response) => {
+        this.matiereOptions = response.docs;
+        this.infoDevoirFormGroup.controls['matiere'].valueChanges.pipe(
           startWith(''),
-          map(value => value ? this._filter(value) : this.matiereOptions.slice()),
+          map(value => value ? this._filter(value) : []),
         );
       }
     );
   }
 
-  private _filter(value: any): Matiere[] {
-    const filterValue = value.toLowerCase();
-
-    return this.matiereOptions.filter(option => option.nom.toLowerCase().includes(filterValue));
-  }
-
-  displayFn(matiere: Matiere): string {
-    return matiere && matiere.nom ? matiere.nom : '';
-  }
-
-  save() {
-    if (this.infoDevoirFormGroup.invalid || this.elevesFormGroup.invalid) {
-      return;
+  private _filter(value: any) {
+    if (value) {
+      this.filteredOptions = this._matiereService.findByText(value) as Observable<any>;
     }
-    let assignment = {
-      nom: this.infoDevoirFormGroup.get('nomDevoir')!.value,
-      dateLimite: new Date(this.infoDevoirFormGroup.get('dateLimite')!.value!),
-      matiere: this.infoDevoirFormGroup.controls['matiere'].value as unknown,
-      rendus: [],
-      nonRendus: []
-    } as Assignment;
-    this.assignmentService.save(assignment).subscribe(response => {
-      console.log(response);
-    });
   }
-}
+
+    displayFn(matiere: Matiere): string {
+      return matiere && matiere.nom ? matiere.nom : '';
+    }
+
+    save() {
+      if (this.infoDevoirFormGroup.invalid || this.elevesFormGroup.invalid) {
+        return;
+      }
+      let assignment = {
+        nom: this.infoDevoirFormGroup.get('nomDevoir')!.value,
+        dateLimite: new Date(this.infoDevoirFormGroup.get('dateLimite')!.value!),
+        matiere: this.infoDevoirFormGroup.controls['matiere'].value as unknown,
+        rendus: [],
+        nonRendus: []
+      } as Assignment;
+      this._assignmentService.save(assignment).subscribe(response => {
+        console.log(response);
+      });
+    }
+  }

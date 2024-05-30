@@ -1,12 +1,9 @@
-<mat-drawer-container class="example-container" style="min-height: 90vh; min-height:90dvh">
-  <mat-drawer #drawer position="end" fixedInViewPort mat-sidenav>
+<mat-drawer-container class="example-container" style="min-height: 90vh; min-height:90dvh" hasBackdrop="false">
+  <mat-drawer #drawer position="end" fixedInViewPort mat-sidenav mode="over">
     <div>
       <h3>Formulaire</h3>
       <form class="upsert-form">
         <ng-template matStepLabel>Informations devoir</ng-template>
-        @if(matiere!.id){
-        <p>Numero: <b>{{matiere.id}}</b></p>
-        }
         <mat-form-field>
           <mat-label>Nom de la matière</mat-label>
           <textarea matInput placeholder="Nom" [(ngModel)]="matiere.nom" name="nom" required></textarea>
@@ -16,7 +13,7 @@
           <input matInput placeholder="Nom du responsable" name="responsable" [(ngModel)]="matiere.responsable" required>
         </mat-form-field>
         <div>
-          <button color="primary" (click)="(matiere.id)?update():save()" mat-flat-button>Enregistrer</button>
+          <button color="primary" (click)="(matiere._id)?update():save()" mat-flat-button>Enregistrer</button>
           <button (click)="closeReset()" mat-flat-button>Annuler</button>
         </div>
       </form>
@@ -31,7 +28,7 @@
 
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> N. </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        <td mat-cell *matCellDef="let element"> {{element._id}} </td>
       </ng-container>
       <ng-container matColumnDef="nom">
         <th mat-header-cell *matHeaderCellDef> nom </th>
@@ -44,8 +41,8 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> actions </th>
         <td mat-cell *matCellDef="let element">
-          <button mat-button (click)="showUpdateForm(element.id)">Modifier</button>
-          <button mat-button color="warn" (click)="delete(element.id)">Supprimer</button>
+          <button mat-button (click)="showUpdateForm(element._id)">Modifier</button>
+          <button mat-button color="warn" (click)="delete(element._id)">Supprimer</button>
         </td>
       </ng-container>
 

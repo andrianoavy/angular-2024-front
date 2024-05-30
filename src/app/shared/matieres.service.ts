@@ -11,4 +11,9 @@ export class MatieresService extends CrudApiService<Matiere> {
   override url: string = "http://10.42.0.1:8010/api/matieres";
 
   constructor(public http: HttpClient) { super(); }
+findByText(searchText: string) {
+    const requestUrl = new URL(this.url);
+    requestUrl.searchParams.append('search', searchText);
+    return this.http.get(requestUrl.toString());
+  }
 }

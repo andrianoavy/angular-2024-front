@@ -11,4 +11,8 @@ export class StudentsService extends CrudApiService<Student> {
   override url: string = "http://10.42.0.1:8010/api/etudiants";
 
   constructor(public http:HttpClient) { super(); }
+
+  getGroups() {
+    return this.http.get(`${this.url}/groups`);
+  }
 }

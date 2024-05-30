@@ -68,6 +68,10 @@ export class AssignmentsNewService {
     return this.http.delete(`${this.url}/${_id}`).pipe(catchError(this.handleError('delete', null)));
   }
 
+  findById(_id: string) {
+    return this.http.get(`${this.url}/${_id}`).pipe(catchError(this.handleError('findById', null)));
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

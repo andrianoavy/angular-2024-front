@@ -14,6 +14,7 @@ import { MatieresComponent } from './matieres/matieres.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/new', pathMatch: 'full' },
   { path: 'new/add', component: NewAddAssignmentComponent },
+  { path: 'edit/:id', component: NewAddAssignmentComponent },
   { path: 'new/:id', component: AssignmentsNewComponent },
   { path: 'students', component: StudentsComponent },
   { path: 'matieres', component: MatieresComponent },

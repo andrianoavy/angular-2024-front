@@ -11,4 +11,5 @@ export class Assignment {
   dateDeRendu?: Date;
   note?: number;
   remarques?: string[];
+  groups?: string[];
 }

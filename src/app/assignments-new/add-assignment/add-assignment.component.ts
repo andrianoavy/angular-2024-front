@@ -17,7 +17,7 @@ import { MatieresService } from '../../shared/matieres.service';
 import { Matiere } from '../matiere.model';
 import { requireMatch } from '../../shared/validators/require-match';
 import { StudentsService } from '../../shared/students.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-assignment',
@@ -55,13 +55,16 @@ export class AddAssignmentComponent {
     dateLimite: ['', Validators.required],
   });
 
-  elevesControl = new FormControl('', Validators.required);
+  elevesControl = new FormControl<string[]>([], Validators.required);
+  id?: string;
+  assignment?: Assignment;
 
   constructor(
     private router: Router,
     private _studentService: StudentsService,
     private _assignmentService: AssignmentsNewService,
     private _matiereService: MatieresService,
+    private _activatedRoute: ActivatedRoute,
     private _formBuilder: FormBuilder) { }
 
   filteredOptions!: Observable<Matiere[]>;
@@ -72,12 +75,14 @@ export class AddAssignmentComponent {
         this.groupOptions = data as any
       }
     );
+
     this.infoDevoirFormGroup.controls['matiere'].valueChanges.subscribe((value) => {
       if (value) {
         this._filter(value);
       }
     }
     );
+
     this._matiereService.findAll().subscribe(
       (response) => {
         this.matiereOptions = response.docs;
@@ -87,6 +92,23 @@ export class AddAssignmentComponent {
         );
       }
     );
+
+    if (this._activatedRoute.snapshot.params['id']) {
+      this.id = this._activatedRoute.snapshot.params['id'];
+      this._assignmentService.findById(this.id!).subscribe(
+        (data) => {
+          if (data){
+            this.assignment = data as any
+            this.infoDevoirFormGroup.controls['matiere'].setValue(this.assignment!.matiere!)
+            this.infoDevoirFormGroup.controls['nomDevoir'].setValue(this.assignment!.nom);
+            this.infoDevoirFormGroup.controls['dateLimite'].setValue(this.assignment!.dateLimite.toString());
+            this.elevesControl.setValue(this.assignment!.groups!);
+            this.elevesControl.disable();
+          }
+        }
+      );
+    }
+
   }
 
   private _filter(value: any) {

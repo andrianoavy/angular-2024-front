@@ -8,10 +8,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { AutorizationService } from '../../autorization.service';
 import { DragdropRendusComponent } from '../dragdrop-rendus/dragdrop-rendus.component';
 import { MatIconModule } from '@angular/material/icon';
-import { Dialog, DialogModule } from '@angular/cdk/dialog';
+import { Dialog } from '@angular/cdk/dialog';
 import { DialogData } from '../rendu-dialog/rendu-dialog.component';
 import { DeleteAssignmentsComponent } from '../delete-assignments/delete-assignments.component';
 import { AssignmentsNewService } from '../../shared/assignments-new.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-assignments-list-item',
@@ -25,7 +26,12 @@ export class AssignmentsListItemComponent implements OnInit {
   isAdmin!: boolean;
   showDetails: boolean = false;
   @Input() assignment!: Assignment;
-  constructor(private service: AssignmentsNewService, public dialog: Dialog, private autorization: AutorizationService) { }
+
+  constructor(
+    private router: Router,
+    private service: AssignmentsNewService,
+    public dialog: Dialog,
+    private autorization: AutorizationService) { }
 
   ngOnInit(): void {
     this.isAdmin = this.autorization.isAdmin();
@@ -36,7 +42,7 @@ export class AssignmentsListItemComponent implements OnInit {
   }
 
   update() {
-
+    this.router.navigate([`edit/${this.assignment._id!}`]);
   }
 
   @Output() deleteEvent = new EventEmitter<string>();

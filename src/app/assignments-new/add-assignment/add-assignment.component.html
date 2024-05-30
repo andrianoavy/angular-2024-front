@@ -33,13 +33,16 @@
   </mat-step>
   <mat-step [stepControl]="elevesControl" label="Elèves concernés">
     <form>
-      <mat-form-field style="max-width: 250px">
+      <mat-form-field style="max-width: 250px; padding-bottom:5rem">
         <mat-label>Groupes</mat-label>
         <mat-select [formControl]="elevesControl" multiple>
           @for (group of groupOptions; track group) {
           <mat-option [value]="group">{{group}}</mat-option>
           }
         </mat-select>
+        @if(assignment){
+        <mat-hint>Les groupes sont désactivés lors de la modification des devoirs</mat-hint>
+        }
       </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>Retour</button>

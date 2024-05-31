@@ -40,4 +40,10 @@ export class AuthService {
 
     return promesse;
   }
+
+  getRandomAvatar() {
+    const random = Math.floor(Math.random() * 99);
+    const gender = Math.floor(Math.random() * 10);
+    return `https://randomuser.me/portraits/${(gender > 5) ? 'men' : 'women'}/${random}.jpg`;
+  }
 }

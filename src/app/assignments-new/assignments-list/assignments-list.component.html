@@ -5,7 +5,7 @@
     (click)="resetFilter()"><mat-icon>refresh</mat-icon></button>
   <a mat-flat-button routerLink="/devoirs/add" color="primary">Nouveau devoir</a>
 </div>
-<cdk-virtual-scroll-viewport #scroller class="virtual-scroller" [itemSize]="itemSize">
+<cdk-virtual-scroll-viewport #scroller class="virtual-scroller assignment-list" [itemSize]="itemSize">
     <ng-container *cdkVirtualFor="let a of assignments">
       @if(isStudent){
       <app-assignments-list-item-student [assignment]="a" />

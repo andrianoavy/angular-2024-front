@@ -15,15 +15,9 @@
     <a routerLink="home" style="text-decoration-line:none;">{{title}}</a>
     <span style="flex: 1 1 auto"></span>
   </mat-toolbar>
-  <mat-slide-toggle (click)="login()" color="primary">Login</mat-slide-toggle>
-  <button mat-button (click)="genererDonneesDeTest()">Peupler BD</button>
 
   <main style="margin: 2rem 5vw">
     <router-outlet></router-outlet>
   </main>
 
 </mat-drawer-container>
-
-<!--
-<app-assignments></app-assignments>
--->

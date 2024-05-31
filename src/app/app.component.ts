@@ -47,13 +47,4 @@ export class AppComponent implements AfterViewInit {
       this.router.navigate(['/']);
     }
   }
-
-  genererDonneesDeTest() {
-    // on utilise le service
-    /* VERSION NAIVE
-    this.assignmentsService.peuplerBD();
-    */
-
-    // VERSION AVEC Observable
-  }
 }

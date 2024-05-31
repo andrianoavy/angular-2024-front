@@ -13,6 +13,7 @@ import { DialogData } from '../rendu-dialog/rendu-dialog.component';
 import { DeleteAssignmentsComponent } from '../delete-assignments/delete-assignments.component';
 import { AssignmentsNewService } from '../../shared/assignments-new.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-assignments-list-item',
@@ -26,14 +27,20 @@ export class AssignmentsListItemComponent implements OnInit {
   isAdmin!: boolean;
   showDetails: boolean = false;
   @Input() assignment!: Assignment;
+  illustration!: string;
+  avatar!: string;
 
   constructor(
     private router: Router,
     private service: AssignmentsNewService,
     public dialog: Dialog,
+    private authService: AuthService,
     private autorization: AutorizationService) { }
 
   ngOnInit(): void {
+    const random = Math. floor(Math. random() * 10) + 1;
+    this.avatar = this.authService.getRandomAvatar();
+    this.illustration = 'assets/images/img'+random+'.svg'
     this.isAdmin = this.autorization.isAdmin();
   }
 

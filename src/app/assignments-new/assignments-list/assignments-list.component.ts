@@ -8,7 +8,7 @@ import { AutorizationService } from '../../autorization.service';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
-import { filter, map, pairwise, throttleTime } from 'rxjs';
+import { debounceTime, filter, map, pairwise, throttleTime } from 'rxjs';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -37,7 +37,7 @@ export class AssignmentsListComponent implements OnInit, AfterViewInit {
 
   isStudent!: boolean;
   assignments?: Assignment[] = [];
-  itemSize: number = 144;
+  itemSize: number = 210;
   pageIndex: number = 0;
   perPage: number = 10;
   totalDocs!: number;
@@ -54,7 +54,7 @@ export class AssignmentsListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.search.valueChanges.pipe(throttleTime(500)).subscribe((value) => {
+    this.search.valueChanges.pipe(debounceTime(500)).subscribe((value) => {
       if(value && value.length <2) return;
       return this.fetchData();
     });

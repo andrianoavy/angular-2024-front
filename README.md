@@ -4,8 +4,8 @@ Projet front-end pour les étudiants du Master MIAGE MBDS de Madagascar
 
 ## Auteurs
 
-32 RAMILISON Abraham Andrianoavy
-54	RAZAKANOME	Andrianotahiana Ismael
+- 32 RAMILISON Abraham Andrianoavy
+- 54	RAZAKANOME	Andrianotahiana Ismael
 
 ## Login et Mot de passes
 

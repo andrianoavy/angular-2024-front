@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://10.42.0.1:8010/api'
+  apiUrl: 'https://angular-2024-assignments-tahiana-abraham.onrender.com'
 };

@@ -27,9 +27,7 @@ export class AuthService {
       if (username === 'student' && password === 'password') {
         userRole = this.roles['student'];
         this.service.getStaticStudentId().subscribe((data) => {
-          console.log(data);
-
-        sessionStorage.setItem('idstudent', data.id.toString());
+           sessionStorage.setItem('idstudent', data.id.toString());
         })
       } else if (username === 'prof' && password === 'password') {
         userRole = this.roles['prof'];

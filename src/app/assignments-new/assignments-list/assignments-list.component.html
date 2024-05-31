@@ -3,7 +3,9 @@
   <input matInput [formControl]="search" placeholder="Filtrer par nom ou nom de matière...">
   <button mat-outlined-button aria-label="Recharger" title="Recharger"
     (click)="resetFilter()"><mat-icon>refresh</mat-icon></button>
+  @if(isAdmin) {
   <a mat-flat-button routerLink="/devoirs/add" color="primary">Nouveau devoir</a>
+  }
 </div>
 <cdk-virtual-scroll-viewport #scroller class="virtual-scroller assignment-list" [itemSize]="itemSize">
     <ng-container *cdkVirtualFor="let a of assignments">

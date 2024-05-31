@@ -7,7 +7,8 @@ import { ROLE } from './shared/role.enum';
 export class AutorizationService {
   private role!:ROLE;
 
-  constructor() { }
+  constructor() {
+  }
 
   setRole(role:ROLE) {
     this.role = role;

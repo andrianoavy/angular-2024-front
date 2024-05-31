@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { debounceTime } from 'rxjs';
+import { AutorizationService } from '../autorization.service';
 
 @Component({
   selector: 'app-matieres',
@@ -38,7 +39,7 @@ export class MatieresComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   totalDocs!: number;
 
-  constructor(private service: MatieresService) { }
+  constructor(private autorization: AutorizationService, private service: MatieresService) { }
 
   ngOnInit(): void {
   }

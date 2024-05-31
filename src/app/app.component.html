@@ -3,8 +3,10 @@
     style="padding: 1rem .5rem; display:flex; flex: 1 1 auto" [autoFocus]="false">
     <mat-nav-list style="min-width:30vw; min-width:30dvh;">
       <a routerLink="devoirs" mat-list-item>Devoirs</a>
+      @if(!isStudent){
       <a routerLink="matieres" mat-list-item>Matières</a>
       <a routerLink="etudiants" mat-list-item>Etudiants</a>
+      }
     </mat-nav-list>
   </mat-drawer>
 

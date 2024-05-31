@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { filter } from 'rxjs';
+import { AutorizationService } from './autorization.service';
 
 @Component({
   selector: 'app-root',
@@ -25,10 +26,17 @@ import { filter } from 'rxjs';
 export class AppComponent implements AfterViewInit {
   title = 'Application de gestion des assignments';
 
+
   @ViewChild(MatDrawer) drawer!: MatDrawer;
 
-  constructor(private authService: AuthService,
-    private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private autorizationService: AutorizationService,
+    private router: Router) {
+    this.isStudent  = autorizationService.isStudent();
+  }
+
+  isStudent:boolean
 
   ngAfterViewInit(): void {
     this.router.events

@@ -36,6 +36,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class AssignmentsListComponent implements OnInit, AfterViewInit {
 
   isStudent!: boolean;
+  isAdmin!: boolean;
   assignments?: Assignment[] = [];
   itemSize: number = 210;
   pageIndex: number = 0;
@@ -50,6 +51,7 @@ export class AssignmentsListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.isStudent = this.autorization.isStudent();
+    this.isAdmin = this.autorization.isAdmin();
     this.fetchData();
   }
 

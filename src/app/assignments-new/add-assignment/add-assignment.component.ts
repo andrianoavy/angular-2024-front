@@ -133,7 +133,7 @@ export class AddAssignmentComponent {
     } as any;
     this._assignmentService.save(assignment).subscribe(response => {
       console.log(response);
-      this.router.navigate(['/new/assignment']);
+      this.router.navigate(['devoirs']);
     });
   }
 }

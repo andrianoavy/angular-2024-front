@@ -17,7 +17,7 @@ export class AssignmentsNewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let id = this.route.snapshot.paramMap.get("id");
+    let id = this.route.snapshot.data['id'];
 
     this.autorization.assignRole(id);
   }

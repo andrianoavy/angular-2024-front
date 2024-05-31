@@ -42,7 +42,7 @@ export class AssignmentsListItemComponent implements OnInit {
   }
 
   update() {
-    this.router.navigate([`edit/${this.assignment._id!}`]);
+    this.router.navigate([`devoirs/edit/${this.assignment._id!}`]);
   }
 
   @Output() deleteEvent = new EventEmitter<string>();

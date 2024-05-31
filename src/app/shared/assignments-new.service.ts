@@ -5,15 +5,13 @@ import { Observable, catchError, of } from 'rxjs';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { Auteur } from '../assignments-new/auteur.model';
 import { AutorizationService } from '../autorization.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssignmentsNewService {
-  private url = 'http://10.42.0.1:8010/api/assignments';
-  private urlStudent = 'http://10.42.0.1:3000/assignments-students';
-  private urlProf = 'http://10.42.0.1:3000/assignments-profs';
-  private urlAdmin = 'http://10.42.0.1:3000/assignments-admin';
+  private url: string = `${environment.apiUrl}/assignments`;
 
   constructor(private http: HttpClient, private _auto: AutorizationService) { }
 

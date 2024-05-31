@@ -54,7 +54,10 @@ export class AssignmentsListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.search.valueChanges.pipe(throttleTime(300)).subscribe(() => this.fetchData());
+    this.search.valueChanges.pipe(throttleTime(500)).subscribe((value) => {
+      if(value && value.length <2) return;
+      return this.fetchData();
+    });
     this.scroller.elementScrolled().pipe(
       map(() => this.scroller.measureScrollOffset("bottom")),
       pairwise(),

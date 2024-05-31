@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-matieres',
@@ -59,7 +60,9 @@ export class MatieresComponent implements OnInit, AfterViewInit {
     this.paginator.pageIndex = 0
     this.paginator.pageSize = 10
     this.fetchData();
-    this.filterControl.valueChanges.subscribe(
+    this.filterControl.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe(
       (value) => {
         if (value && value.length > 2) {
           this.fetchData()

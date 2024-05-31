@@ -12,7 +12,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AsyncPipe, DatePipe, NgIf } from '@angular/common';
 import { Assignment } from '../assignments-new.model';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { Observable, startWith, map } from 'rxjs';
+import { Observable, debounceTime } from 'rxjs';
 import { MatieresService } from '../../shared/matieres.service';
 import { Matiere } from '../matiere.model';
 import { requireMatch } from '../../shared/validators/require-match';
@@ -76,7 +76,9 @@ export class AddAssignmentComponent {
       }
     );
 
-    this.infoDevoirFormGroup.controls['matiere'].valueChanges.subscribe((value) => {
+    this.infoDevoirFormGroup.controls.matiere.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((value) => {
       if (value) {
         this._filter(value);
       }
@@ -86,10 +88,6 @@ export class AddAssignmentComponent {
     this._matiereService.findAll().subscribe(
       (response) => {
         this.matiereOptions = response.docs;
-        this.infoDevoirFormGroup.controls['matiere'].valueChanges.pipe(
-          startWith(''),
-          map(value => value ? this._filter(value) : []),
-        );
       }
     );
 

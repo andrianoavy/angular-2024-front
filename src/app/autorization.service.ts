@@ -41,4 +41,12 @@ export class AutorizationService {
     return this.role === ROLE.Admin;
   }
 
+  idStudent() {
+      return testId1;
+  }
+
 }
+const testId1 = '6658765957d710f5ab626638'; // a des devoirs
+const testStudent1 = '6658621178b457da0f9fb143'; // a des devoirs
+const testStudent2 = '6658765957d710f5ab626638'; // n'a pas de devoirs
+

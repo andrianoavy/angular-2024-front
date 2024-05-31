@@ -3,7 +3,6 @@ import { AssignmentsNewService } from '../../shared/assignments-new.service';
 import { Assignment } from '../assignments-new.model';
 import { AssignmentsListItemComponent } from '../assignments-list-item/assignments-list-item.component';
 import { MatList, MatListItem } from '@angular/material/list';
-import { ROLE } from '../../shared/role.enum';
 import { AssignmentsListItemStudentComponent } from '../assignments-list-item-student/assignments-list-item-student.component';
 import { AutorizationService } from '../../autorization.service';
 import { RouterLink } from '@angular/router';
@@ -55,7 +54,7 @@ export class AssignmentsListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.search.valueChanges.pipe(throttleTime(300)).subscribe(()=> this.fetchData());
+    this.search.valueChanges.pipe(throttleTime(300)).subscribe(() => this.fetchData());
     this.scroller.elementScrolled().pipe(
       map(() => this.scroller.measureScrollOffset("bottom")),
       pairwise(),
@@ -73,55 +72,26 @@ export class AssignmentsListComponent implements OnInit, AfterViewInit {
   }
 
   fetchMore() {
-    switch (this.autorization.getRole()) {
-      case ROLE.Student:
-        this.service.getAssignmentsStudents(testStudent2).subscribe((response) => {
-          this.totalDocs = response.totalDocs;
-          this.nextPage = response.nextPage;
-          this.hasNextPage = response.hasNextPage;
-          if(!this.hasNextPage) {
-            return;
-          }
-          this.assignments = [...this.assignments!, ...response.docs as any];
-        });
-        break;
-      default:
-        this.service.findAll(this.search.value??undefined, this.pageIndex, this.perPage).subscribe((response) => {
-          this.totalDocs = response.totalDocs;
-          this.nextPage = response.nextPage;
-          this.hasNextPage = response.hasNextPage;
-          this.pageIndex = this.nextPage!;
-          if(!this.hasNextPage) {
-            return;
-          }
-          this.assignments = [...this.assignments!, ...response.docs as any];
-        });
-        break;
-    }
+    this.service.findAll(this.search.value ?? undefined, this.pageIndex, this.perPage).subscribe((response) => {
+      this.totalDocs = response.totalDocs;
+      this.nextPage = response.nextPage;
+      this.hasNextPage = response.hasNextPage;
+      this.pageIndex = this.nextPage!;
+      if (!this.hasNextPage) {
+        return;
+      }
+      this.assignments = [...this.assignments!, ...response.docs as any];
+    });
   }
 
   fetchData() {
-    switch (this.autorization.getRole()) {
-      case ROLE.Student:
-        this.service.getAssignmentsStudents(testStudent2).subscribe((response) => {
-          this.assignments = response.docs as any;
-          this.totalDocs = response.totalDocs;
-          this.nextPage = response.nextPage;
-          this.pageIndex = this.nextPage!;
-          this.hasNextPage = response.hasNextPage;
-
-        });
-        break;
-      default:
-        this.service.findAll(this.search.value??undefined, this.pageIndex, this.perPage).subscribe((response) => {
-          this.totalDocs = response.totalDocs;
-          this.nextPage = response.nextPage;
-          this.hasNextPage = response.hasNextPage;
-          this.pageIndex = this.nextPage!;
-          this.assignments = response.docs as any;
-        });
-        break;
-    }
+    this.service.findAll(this.search.value ?? undefined, this.pageIndex, this.perPage).subscribe((response) => {
+      this.totalDocs = response.totalDocs;
+      this.nextPage = response.nextPage;
+      this.hasNextPage = response.hasNextPage;
+      this.pageIndex = this.nextPage!;
+      this.assignments = response.docs as any;
+    });
   }
 
 }

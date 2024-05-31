@@ -4,6 +4,7 @@ import { Assignment } from '../assignments-new/assignments-new.model';
 import { Observable, catchError, of } from 'rxjs';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { Auteur } from '../assignments-new/auteur.model';
+import { AutorizationService } from '../autorization.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +15,23 @@ export class AssignmentsNewService {
   private urlProf = 'http://10.42.0.1:3000/assignments-profs';
   private urlAdmin = 'http://10.42.0.1:3000/assignments-admin';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _auto: AutorizationService) { }
 
-  getAssignmentsStudents(id:string): Observable<any> {
+  getAssignmentsStudents(search?:string, page?:number, limit?:number): Observable<any> {
     let requestUrl = new URL(this.url);
+
     requestUrl.searchParams.append('role', 'etudiant');
-    requestUrl.searchParams.append('idEtudiant', id);
+    requestUrl.searchParams.append('idEtudiant', this._auto.idStudent());
+
+    if (search) {
+      requestUrl.searchParams.append('search', search!);
+    }
+    if (page) {
+      requestUrl.searchParams.append('page', String(page!));
+    }
+    if (limit) {
+      requestUrl.searchParams.append('limit', String(limit!));
+    }
 
     return this.http.get(requestUrl.toString())
       .pipe(
@@ -29,6 +41,11 @@ export class AssignmentsNewService {
 
   findAll(search?:string, page?:number, limit?:number): Observable<any> {
     let requestURL = new URL(this.url);
+
+    if(this._auto.isStudent()) {
+      return this.getAssignmentsStudents(search, page,limit);
+    }
+
     if (search) {
       requestURL.searchParams.append('search', search!);
     }

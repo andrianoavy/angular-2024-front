@@ -45,7 +45,7 @@ export class MatieresComponent implements OnInit, AfterViewInit {
   }
 
   fetchData(): void {
-    this.service.findAll(this.filterControl.value??'', this.paginator.pageIndex, this.paginator.pageSize).subscribe(response => {
+    this.service.findAll(this.filterControl.value ?? '', this.paginator.pageIndex, this.paginator.pageSize).subscribe(response => {
       this.dataSource = response.docs;
       this.totalDocs = response.totalDocs;
       this.closeReset();
@@ -64,12 +64,13 @@ export class MatieresComponent implements OnInit, AfterViewInit {
     this.filterControl.valueChanges
       .pipe(debounceTime(500))
       .subscribe(
-      (value) => {
-        if (value && value.length > 2) {
-          this.fetchData()
+        (value) => {
+          if (value && value.length > 2) {
+            this.paginator.pageIndex = 0
+            this.fetchData()
+          }
         }
-      }
-    );
+      );
     this.drawer.closedStart.subscribe(() => {
       this.resetForm();
     })

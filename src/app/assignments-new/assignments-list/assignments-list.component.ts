@@ -12,6 +12,7 @@ import { debounceTime, filter, map, pairwise, throttleTime } from 'rxjs';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-assignments-list',
@@ -35,8 +36,6 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class AssignmentsListComponent implements OnInit, AfterViewInit {
 
-  isStudent!: boolean;
-  isAdmin!: boolean;
   assignments?: Assignment[] = [];
   itemSize: number = 210;
   pageIndex: number = 0;
@@ -47,13 +46,16 @@ export class AssignmentsListComponent implements OnInit, AfterViewInit {
   nextPage?: number;
   hasNextPage?: boolean;
 
-  constructor(private autorization: AutorizationService, private service: AssignmentsNewService, private ngZone: NgZone) { }
+  constructor(private authService: AuthService, private service: AssignmentsNewService, private ngZone: NgZone) { }
 
   ngOnInit(): void {
-    this.isStudent = this.autorization.isStudent();
-    this.isAdmin = this.autorization.isAdmin();
+    this.isAdmin = this.authService.getRole() === 'admin';
+    this.isStudent = this.authService.getRole() === 'student';
     this.fetchData();
   }
+
+  isAdmin!:boolean
+  isStudent!:boolean
 
   ngAfterViewInit(): void {
     this.search.valueChanges.pipe(debounceTime(500)).subscribe((value) => {

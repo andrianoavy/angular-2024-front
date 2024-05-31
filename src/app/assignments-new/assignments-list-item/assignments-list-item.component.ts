@@ -41,7 +41,7 @@ export class AssignmentsListItemComponent implements OnInit {
     const random = Math. floor(Math. random() * 10) + 1;
     this.avatar = this.authService.getRandomAvatar();
     this.illustration = 'assets/images/img'+random+'.svg'
-    this.isAdmin = this.autorization.isAdmin();
+    this.isAdmin = this.authService.getRole() === 'admin';
   }
 
   toggleDetails() {

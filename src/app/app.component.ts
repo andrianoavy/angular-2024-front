@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,6 +11,7 @@ import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { filter } from 'rxjs';
 import { AutorizationService } from './autorization.service';
+import { LoginComponent } from './login/login.component';
 
 @Component({
   selector: 'app-root',
@@ -18,41 +19,40 @@ import { AutorizationService } from './autorization.service';
   imports: [RouterOutlet, RouterLink, MatButtonModule, MatDividerModule,
     MatIconModule, MatSlideToggleModule,
     MatToolbarModule, MatButtonModule, MatIconModule,
-    MatSidenavModule, MatListModule
+    MatSidenavModule, MatListModule, LoginComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit, OnInit {
   title = 'Application de gestion des assignments';
 
 
-  @ViewChild(MatDrawer) drawer!: MatDrawer;
+  @ViewChild(MatDrawer) drawer?: MatDrawer;
 
   constructor(
     private authService: AuthService,
-    private autorizationService: AutorizationService,
     private router: Router) {
-    this.isStudent  = autorizationService.isStudent();
+  }
+    ngOnInit(): void {
+    }
+
+  isAuthenticated() {
+    return this.authService.isAuthenticated();
   }
 
-  isStudent:boolean
+  getUser() {
+    return this.authService.getUser();
+  }
+
+  logout(){
+    this.authService.logout();
+  }
 
   ngAfterViewInit(): void {
     this.router.events
       .pipe(filter(event => event instanceof NavigationStart))
-      .subscribe(() => this.drawer.close())
+      .subscribe(() => this.drawer?.close())
   }
 
-  login() {
-    // on utilise le service d'autentification
-    // pour se connecter ou se déconnecter
-    if (!this.authService.loggedIn) {
-      this.authService.logIn();
-    } else {
-      this.authService.logOut();
-      // on navigue vers la page d'accueil
-      this.router.navigate(['/']);
-    }
-  }
 }

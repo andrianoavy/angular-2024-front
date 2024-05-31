@@ -1,12 +1,14 @@
+@if(isAuthenticated()) {
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="over" hasBackdrop="true"
     style="padding: 1rem .5rem; display:flex; flex: 1 1 auto" [autoFocus]="false">
     <mat-nav-list style="min-width:30vw; min-width:30dvh;">
+<h3>
+  Bonjour, {{getUser()}}
+</h3>
       <a routerLink="devoirs" mat-list-item>Devoirs</a>
-      @if(!isStudent){
       <a routerLink="matieres" mat-list-item>Matières</a>
       <a routerLink="etudiants" mat-list-item>Etudiants</a>
-      }
     </mat-nav-list>
   </mat-drawer>
 
@@ -15,7 +17,12 @@
       <mat-icon>menu</mat-icon>
     </button>
     <a routerLink="home" style="text-decoration-line:none;">{{title}}</a>
-    <span style="flex: 1 1 auto"></span>
+    <span style="flex: 1 1 auto">
+    </span>
+    <button title="se déconnecter" mat-icon-button (click)="logout()">
+      <mat-icon>logout</mat-icon>
+    </button>
+
   </mat-toolbar>
 
   <main>
@@ -23,3 +30,6 @@
   </main>
 
 </mat-drawer-container>
+}@else{
+<app-login></app-login>
+}

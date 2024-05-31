@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { debounceTime } from 'rxjs';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-students',
@@ -38,9 +39,12 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   totalDocs!: number;
 
-  constructor(private service: StudentsService) { }
+  constructor(private authService:AuthService, private service: StudentsService) { }
 
   ngOnInit(): void {
+    if(!this.isAdmin()) {
+      this.displayedColumns.pop();
+    }
   }
 
   fetchData(): void {
@@ -56,6 +60,10 @@ export class StudentsComponent implements OnInit, AfterViewInit {
     this.fetchData();
   }
 
+  isAdmin(){
+    return this.authService.getRole() === 'admin';
+  }
+
   ngAfterViewInit(): void {
     this.paginator.pageIndex = 0
     this.paginator.pageSize = 10
@@ -63,8 +71,10 @@ export class StudentsComponent implements OnInit, AfterViewInit {
     this.filterControl.valueChanges
       .pipe(debounceTime(500))
       .subscribe(value => {
-      if (value && value.length > 1)
+      if (value && value.length > 1){
+        this.paginator.pageIndex = 0
         this.fetchData();
+        }
     });
     this.drawer.closedStart.subscribe(() => {
       this.resetForm();

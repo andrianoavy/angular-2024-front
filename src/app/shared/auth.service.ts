@@ -1,46 +1,56 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // propriété pour savoir si l'utilisateur est connecté
-  loggedIn = false;
+  private roles: { [key: string]: string } = {
+    student: 'student',
+    prof: 'prof',
+    admin: 'admin'
+  };
 
-  constructor() { }
+  constructor(private router: Router) {}
 
-  // méthode pour connecter l'utilisateur
-  // Typiquement, il faudrait qu'elle accepte en paramètres
-  // un nom d'utilisateur et un mot de passe, que l'on vérifierait
-  // auprès d'un serveur...
-  logIn() {
-    this.loggedIn = true;
+  login(username: string, password: string): boolean {
+    if (username && password) {
+      let userRole = null;
+      if (username === 'student' && password === 'password') {
+        userRole = this.roles['student'];
+      } else if (username === 'prof' && password === 'password') {
+        userRole = this.roles['prof'];
+      } else if (username === 'admin' && password === 'password') {
+        userRole = this.roles['admin'];
+      }
+
+      if (userRole) {
+        sessionStorage.setItem('username', username);
+        sessionStorage.setItem('role', userRole);
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return false;
   }
 
-  // méthode pour déconnecter l'utilisateur
-  logOut() {
-    this.loggedIn = false;
+  logout() {
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('role');
+    this.router.navigate(['/home']);
   }
 
-  // methode qui indique si on est connecté en tant qu'admin ou pas
-  // pour le moment, on est admin simplement si on est connecté
-  // En fait cette méthode ne renvoie pas directement un booleén
-  // mais une Promise qui va renvoyer un booléen (c'est imposé par
-  // le système de securisation des routes de Angular)
-  //
-  // si on l'utilisait à la main dans un composant, on ferait:
-  // this.authService.isAdmin().then(....) ou
-  // admin = await this.authService.isAdmin()
-  isAdmin() {
-    const promesse = new Promise((resolve, reject) => {
-      // ici accès BD? Web Service ? etc...
-      resolve(this.loggedIn);
-      // pas de cas d'erreur ici, donc pas de reject
-    });
-
-    return promesse;
+  isAuthenticated(): boolean {
+    return sessionStorage.getItem('role') !== null;
   }
 
+  getUser(): string | null {
+    return sessionStorage.getItem('username');
+  }
+  getRole(): string | null {
+    return sessionStorage.getItem('role');
+  }
   getRandomAvatar() {
     const random = Math.floor(Math.random() * 99);
     const gender = Math.floor(Math.random() * 10);

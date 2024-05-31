@@ -1,7 +1,7 @@
 <div style="display:flex; margin-bottom: 10px; background-color: white">
   <img mat-card-image width="200" height="200" [src]="illustration" alt="Photo representative">
   <mat-card class="example-card" style="flex-grow:1">
-    <mat-card-header>
+    <mat-card-header style="flex-grow:1">
     <div mat-card-avatar [style]="'background-image: url(\''+avatar+'\'); background-size: cover;'"></div>
       <mat-card-title>{{assignment.nom}}</mat-card-title>
       @if(isAdmin){
@@ -11,17 +11,17 @@
       }
       <mat-card-subtitle>A rendre avant le: <strong> {{assignment.dateLimite | date}} </strong></mat-card-subtitle>
     </mat-card-header>
-    <mat-card-actions>
-      <button mat-raised-button (click)="toggleDetails()" color="primary">DETAILS</button>
+
+    <mat-card-content [style.display]="showDetails?'block':'none'" style="flex-grow:1">
+      <app-dragdrop-rendus [assignmentId]="assignment._id!" [rendus]="assignment.rendus?? []"
+        [nonRendus]="assignment.nonRendus?? []"></app-dragdrop-rendus>
+    </mat-card-content>
+    <mat-card-actions style="align-self: flex-end;">
+      <button mat-raised-button (click)="toggleDetails()" [color]="(showDetails)?'default':'primary'">{{(showDetails)?"Voir moins":"Voir plus"}}</button>
       @if(isAdmin){
       <button mat-button (click)="update()"><mat-icon>edit_square</mat-icon></button>
       <button mat-button (click)="delete()" color="warn"><mat-icon>delete</mat-icon></button>
       }
     </mat-card-actions>
-
-    <mat-card-content [style.display]="showDetails?'block':'none'">
-      <app-dragdrop-rendus [assignmentId]="assignment._id!" [rendus]="assignment.rendus?? []"
-        [nonRendus]="assignment.nonRendus?? []"></app-dragdrop-rendus>
-    </mat-card-content>
   </mat-card>
 </div>

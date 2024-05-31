@@ -1,0 +1,29 @@
+main {
+  margin: 2rem auto;
+ @media only screen {
+    width: 100%;
+ }
+ @media only screen and (min-width:576px)  {
+    width: 510px ;
+ }
+ @media only screen and (min-width:768px)  {
+    width: 700px ;
+ }
+ @media only screen and (min-width:1024px)  {
+    width: 950px ;
+ }
+ @media only screen and (min-width:1280px)  {
+    width: 1200px ;
+ }
+ @media only screen and (min-width:1536px)  {
+    width: 1450px ;
+ }
+}
+/*
+Extra small	<576px	100%
+Small	≥576px	510px
+Medium	≥768px	700px
+Large	≥1024px	950px
+Extra large	≥1280px	1200px
+Extra extra large	≥1536px	1450px
+*/

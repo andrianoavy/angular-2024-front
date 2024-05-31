@@ -1,17 +1,14 @@
 <div style="display:flex; margin-bottom: 10px; background-color:white;">
   <img mat-card-image width="200" height="200" [src]="illustration" alt="Photo representative">
 <mat-card class="example-card" style="flex-grow:1">
-  <mat-card-header>
+  <mat-card-header style="flex-grow:1">
     <div mat-card-avatar [style]="'background-image: url(\''+avatar+'\'); background-size: cover;'"></div>
     <mat-card-title>{{assignment.nom}}</mat-card-title>
       <mat-card-subtitle>Matière: {{assignment.matiere!.nom}}({{assignment.matiere!.responsable}})</mat-card-subtitle>
     <mat-card-subtitle>A rendre avant le: <strong> {{assignment.dateLimite | date}} </strong></mat-card-subtitle>
   </mat-card-header>
   @if(assignment.dateDeRendu){
-  <mat-card-actions>
-    <button mat-raised-button (click)="toggleDetails()" [color]="(showDetails)?'default':'primary'">{{(showDetails)?"Voir moins":"Afficher les résultats"}}</button>
-  </mat-card-actions>
-  <mat-card-content [style.display]="showDetails?'block':'none'">
+  <mat-card-content [style.display]="showDetails?'block':'none'" style="flex-grow:1">
     <dl>
       <dt>Note:</dt>
       <dd>{{assignment.note}}/20</dd>
@@ -21,6 +18,9 @@
       }
     </dl>
   </mat-card-content>
+  <mat-card-actions style="align-self: flex-end;">
+    <button mat-raised-button (click)="toggleDetails()" [color]="(showDetails)?'default':'primary'">{{(showDetails)?"Voir moins":"Afficher les résultats"}}</button>
+  </mat-card-actions>
   }
 </mat-card>
 </div>

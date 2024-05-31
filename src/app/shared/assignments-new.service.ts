@@ -6,6 +6,7 @@ import { CdkDrag } from '@angular/cdk/drag-drop';
 import { Auteur } from '../assignments-new/auteur.model';
 import { AutorizationService } from '../autorization.service';
 import { environment } from '../../environments/environment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +14,13 @@ import { environment } from '../../environments/environment';
 export class AssignmentsNewService {
   private url: string = `${environment.apiUrl}/assignments`;
 
-  constructor(private http: HttpClient, private _auto: AutorizationService) { }
+  constructor(private http: HttpClient, private _auth: AuthService) { }
 
-  getAssignmentsStudents(search?:string, page?:number, limit?:number): Observable<any> {
+  getAssignmentsStudents(search?: string, page?: number, limit?: number): Observable<any> {
     let requestUrl = new URL(this.url);
 
     requestUrl.searchParams.append('role', 'etudiant');
-    requestUrl.searchParams.append('idEtudiant', this._auto.idStudent());
+    requestUrl.searchParams.append('idEtudiant', this._auth.getIdStudent()!);
 
     if (search) {
       requestUrl.searchParams.append('search', search!);
@@ -37,11 +38,11 @@ export class AssignmentsNewService {
       );
   }
 
-  findAll(search?:string, page?:number, limit?:number): Observable<any> {
+  findAll(search?: string, page?: number, limit?: number): Observable<any> {
     let requestURL = new URL(this.url);
 
-    if(this._auto.isStudent()) {
-      return this.getAssignmentsStudents(search, page,limit);
+    if (this._auth.getRole() === 'student') {
+      return this.getAssignmentsStudents(search, page, limit);
     }
 
     if (search) {
@@ -82,11 +83,11 @@ export class AssignmentsNewService {
     return this.http.post<Assignment>(this.url, { ...assignment }).pipe(catchError(this.handleError('save', null)));
   }
 
-  noter(etudiant: any){
+  noter(etudiant: any) {
     return this.http.put(`${this.url}/noter`, etudiant).pipe(catchError(this.handleError('noter', null)));
   }
 
-  annulerNote(etudiant: any){
+  annulerNote(etudiant: any) {
     return this.http.put(`${this.url}/annuler-note`, etudiant).pipe(catchError(this.handleError('annuler', null)));
   }
 

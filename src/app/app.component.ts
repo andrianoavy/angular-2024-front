@@ -26,6 +26,8 @@ import { LoginComponent } from './login/login.component';
 })
 export class AppComponent implements AfterViewInit, OnInit {
   title = 'Application de gestion des assignments';
+  isAdmin!: boolean
+  isProf!: boolean
 
 
   @ViewChild(MatDrawer) drawer?: MatDrawer;
@@ -35,6 +37,8 @@ export class AppComponent implements AfterViewInit, OnInit {
     private router: Router) {
   }
     ngOnInit(): void {
+      this.isAdmin = this.authService.getRole() === 'admin'
+      this.isProf = this.authService.getRole() === 'prof'
     }
 
   isAuthenticated() {

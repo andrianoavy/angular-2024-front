@@ -1,23 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { StudentsService } from './students.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+
   private roles: { [key: string]: string } = {
     student: 'student',
     prof: 'prof',
     admin: 'admin'
   };
 
-  constructor(private router: Router) {}
+  constructor(private service: StudentsService,private router: Router) {}
+
+  getIdStudent(){
+    console.log(sessionStorage.getItem('idstudent')?.toString())
+    return sessionStorage.getItem('idstudent')?.toString()
+  }
 
   login(username: string, password: string): boolean {
     if (username && password) {
       let userRole = null;
       if (username === 'student' && password === 'password') {
         userRole = this.roles['student'];
+        this.service.getStaticStudentId().subscribe((data) => {
+          console.log(data);
+
+        sessionStorage.setItem('idstudent', data.id.toString());
+        })
       } else if (username === 'prof' && password === 'password') {
         userRole = this.roles['prof'];
       } else if (username === 'admin' && password === 'password') {
@@ -57,3 +70,4 @@ export class AuthService {
     return `https://randomuser.me/portraits/${(gender > 5) ? 'men' : 'women'}/${random}.jpg`;
   }
 }
+

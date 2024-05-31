@@ -3,6 +3,7 @@ import { CrudApiService } from './crud-api.service';
 import { Auteur as Student} from '../assignments-new/auteur.model'
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +15,9 @@ export class StudentsService extends CrudApiService<Student> {
 
   getGroups() {
     return this.http.get(`${this.url}/groups`);
+  }
+
+  getStaticStudentId(): Observable<any> {
+    return this.http.get(`${this.url}/static`);
   }
 }

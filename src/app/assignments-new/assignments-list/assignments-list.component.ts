@@ -38,8 +38,9 @@ export class AssignmentsListComponent implements OnInit, AfterViewInit {
 
   isStudent!: boolean;
   assignments?: Assignment[] = [];
-  itemSize: number = 5;
+  itemSize: number = 144;
   pageIndex: number = 0;
+  perPage: number = 10;
   totalDocs!: number;
   search = new FormControl('');
   @ViewChild(CdkVirtualScrollViewport) scroller!: CdkVirtualScrollViewport;
@@ -58,7 +59,7 @@ export class AssignmentsListComponent implements OnInit, AfterViewInit {
     this.scroller.elementScrolled().pipe(
       map(() => this.scroller.measureScrollOffset("bottom")),
       pairwise(),
-      filter(([y1, y2]) => (y2 < y1) && (y2 < 100)),
+      filter(([y1, y2]) => (y2 < y1) && (y2 < 140)),
       throttleTime(200)
     ).subscribe(() => {
       this.ngZone.run(() => {
@@ -85,7 +86,7 @@ export class AssignmentsListComponent implements OnInit, AfterViewInit {
         });
         break;
       default:
-        this.service.findAll(this.search.value??undefined, this.pageIndex, this.itemSize).subscribe((response) => {
+        this.service.findAll(this.search.value??undefined, this.pageIndex, this.perPage).subscribe((response) => {
           this.totalDocs = response.totalDocs;
           this.nextPage = response.nextPage;
           this.hasNextPage = response.hasNextPage;
@@ -112,7 +113,7 @@ export class AssignmentsListComponent implements OnInit, AfterViewInit {
         });
         break;
       default:
-        this.service.findAll(this.search.value??undefined, this.pageIndex, this.itemSize).subscribe((response) => {
+        this.service.findAll(this.search.value??undefined, this.pageIndex, this.perPage).subscribe((response) => {
           this.totalDocs = response.totalDocs;
           this.nextPage = response.nextPage;
           this.hasNextPage = response.hasNextPage;

@@ -1,12 +1,11 @@
-<div class="list-header">
   <h2>Liste des devoirs</h2>
+<div class="list-header">
   <input matInput [formControl]="search">
   <button mat-outlined-button aria-label="Recharger" title="Recharger"
     (click)="resetFilter()"><mat-icon>refresh</mat-icon></button>
   <a mat-flat-button routerLink="/new/add" color="primary">Nouveau devoir</a>
 </div>
-<cdk-virtual-scroll-viewport #scroller class="virtual-scroller" [itemSize]="10">
-  <div class="assignments-list">
+<cdk-virtual-scroll-viewport #scroller class="virtual-scroller" [itemSize]="itemSize">
     <ng-container *cdkVirtualFor="let a of assignments">
       @if(isStudent){
       <app-assignments-list-item-student [assignment]="a" />
@@ -18,5 +17,4 @@
     @if(!assignments?.length){
     <p>Pas encore de devoir assignés</p>
     }
-  </div>
 </cdk-virtual-scroll-viewport>

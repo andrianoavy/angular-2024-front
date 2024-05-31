@@ -27,8 +27,19 @@ export class AssignmentsNewService {
       );
   }
 
-  findAll(): Observable<any> {
-    return this.http.get(this.url)
+  findAll(search?:string, page?:number, limit?:number): Observable<any> {
+    let requestURL = new URL(this.url);
+    if (search) {
+      requestURL.searchParams.append('search', search!);
+    }
+    if (page) {
+      requestURL.searchParams.append('page', String(page!));
+    }
+    if (limit) {
+      requestURL.searchParams.append('limit', String(limit!));
+    }
+
+    return this.http.get(requestURL.toString())
       .pipe(
         catchError(this.handleError('getAssigments', [] as Assignment[]))
       );

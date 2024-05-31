@@ -4,7 +4,16 @@
   flex-direction: column;
 }
 
+.virtual-scroller{
+  min-height: calc(75vh - 64px);
+  overflow-y:scroll;
+}
+
 .list-header {
   display: flex;
+  gap: .4rem;
   justify-content: space-between;
+}
+.list-header>input {
+  flex-grow: 1;
 }

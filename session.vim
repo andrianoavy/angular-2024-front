@@ -16,49 +16,58 @@ endif
 badd +1 ~/itu/mbds/angular/front
 badd +10 src/app/assignments-new/assignments-new.component.ts
 badd +1 src/app/assignments-new/assignments-new.component.html
-badd +25 src/app/assignments-new/assignments-list/assignments-list.component.ts
-badd +6 src/app/assignments-new/assignments-list/assignments-list.component.html
-badd +38 src/app/shared/assignments-new.service.ts
-badd +12 src/app/app.routes.ts
-badd +19 src/app/assignments-new/assignments-list-item/assignments-list-item.component.ts
-badd +10 src/app/assignments-new/assignments-list-item/assignments-list-item.component.html
-badd +77 data/db.json
+badd +21 src/app/assignments-new/assignments-list/assignments-list.component.ts
+badd +11 src/app/assignments-new/assignments-list/assignments-list.component.html
+badd +25 src/app/shared/assignments-new.service.ts
+badd +17 src/app/app.routes.ts
+badd +45 src/app/assignments-new/assignments-list-item/assignments-list-item.component.ts
+badd +16 src/app/assignments-new/assignments-list-item/assignments-list-item.component.html
+badd +36 data/db.json
 badd +9 src/app/assignments-new/assignments-list-item/assignments-list-item.component.css
-badd +1 src/app/assignments-new/assignments-new.model.ts
+badd +14 src/app/assignments-new/assignments-new.model.ts
 badd +4 src/app/shared/role.enum.ts
-badd +14 src/app/assignments-new/assignments-list-item-student/assignments-list-item-student.component.ts
-badd +5 src/app/assignments-new/assignments-list-item-student/assignments-list-item-student.component.html
+badd +13 src/app/assignments-new/assignments-list-item-student/assignments-list-item-student.component.ts
+badd +19 src/app/assignments-new/assignments-list-item-student/assignments-list-item-student.component.html
 badd +39 src/app/autorization.service.ts
 badd +1 src/app/assignments-new/assignments-list-item-student/assignments-list-item-student.component.css
-badd +2 src/app/assignments-new/dragdrop-rendus/dragdrop-rendus.component.ts
-badd +6 src/app/assignments-new/dragdrop-rendus/dragdrop-rendus.component.html
+badd +52 src/app/assignments-new/dragdrop-rendus/dragdrop-rendus.component.ts
+badd +12 src/app/assignments-new/dragdrop-rendus/dragdrop-rendus.component.html
 badd +14 src/app/assignments-new/dragdrop-rendus/dragdrop-rendus.component.css
-badd +10 src/app/shared/assignments.service.ts
+badd +49 src/app/shared/assignments.service.ts
 badd +11 src/app/assignments-new/rendu-dialog/rendu-dialog.component.ts
 badd +1 src/app/assignments-new/rendu-dialog/rendu-dialog.component.html
 badd +1 src/app/assignments-new/rendu-dialog/rendu-dialog.component.css
-badd +6 src/app/assignments-new/annuler-rendu-dialog/annuler-rendu-dialog.component.html
-badd +10 src/app/assignments-new/annuler-rendu-dialog/annuler-rendu-dialog.component.css
-badd +16 src/app/assignments-new/annuler-rendu-dialog/annuler-rendu-dialog.component.ts
-badd +25 src/app/students/students.component.ts
-badd +6 src/app/students/students.component.html
-badd +4 src/app/assignments-new/add-assignment/add-assignment.component.html
-badd +43 src/app/assignments-new/add-assignment/add-assignment.component.ts
-badd +3 src/app/shared/students.service.ts
+badd +3 src/app/assignments-new/annuler-rendu-dialog/annuler-rendu-dialog.component.html
+badd +1 src/app/assignments-new/annuler-rendu-dialog/annuler-rendu-dialog.component.css
+badd +10 src/app/assignments-new/annuler-rendu-dialog/annuler-rendu-dialog.component.ts
+badd +27 src/app/students/students.component.ts
+badd +57 src/app/students/students.component.html
+badd +38 src/app/assignments-new/add-assignment/add-assignment.component.html
+badd +113 src/app/assignments-new/add-assignment/add-assignment.component.ts
+badd +17 src/app/shared/students.service.ts
 badd +3 src/app/students/students.component.css
-badd +2 src/app/assignments-new/auteur.model.ts
-badd +4 src/app/assignments/assignments.component.ts
-badd +25 src/app/matieres/matieres.component.ts
-badd +5 src/app/shared/matieres.service.ts
-badd +4 src/app/assignments-new/matiere.model.ts
-badd +12 src/app/matieres/matieres.component.html
-badd +12 src/app/matieres/matieres.component.css
+badd +1 src/app/assignments-new/auteur.model.ts
+badd +78 src/app/assignments/assignments.component.ts
+badd +27 src/app/matieres/matieres.component.ts
+badd +17 src/app/shared/matieres.service.ts
+badd +1 src/app/assignments-new/matiere.model.ts
+badd +55 src/app/matieres/matieres.component.html
+badd +18 src/app/matieres/matieres.component.css
 badd +12 src/app/assignments-new/add-assignment/add-assignment.component.css
 badd +3 src/app/shared/validators/require-match.ts
+badd +20 src/app/shared/crud-api.service.ts
+badd +1474 node_modules/.pnpm/typescript@5.3.3/node_modules/typescript/lib/lib.es5.d.ts
+badd +24 src/app/app.component.ts
+badd +12 src/app/app.component.html
+badd +10 node_modules/.pnpm/rxjs@7.8.1/node_modules/rxjs/src/internal/operators/catchError.ts
+badd +17 src/app/assignments-new/delete-assignments/delete-assignments.component.ts
+badd +5 src/app/assignments-new/delete-assignments/delete-assignments.component.html
+badd +1 src/app/assignments-new/delete-assignments/delete-assignments.component.css
+badd +69 src/app/assignments/assignments.component.html
 argglobal
 %argdel
 $argadd ~/itu/mbds/angular/front
-edit src/app/assignments-new/add-assignment/add-assignment.component.html
+edit src/app/assignments-new/dragdrop-rendus/dragdrop-rendus.component.ts
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -75,10 +84,9 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 78 + 40) / 80)
-exe 'vert 2resize ' . ((&columns * 1 + 40) / 80)
+wincmd =
 argglobal
-balt src/app/assignments-new/add-assignment/add-assignment.component.ts
+balt src/app/assignments/assignments.component.ts
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -89,20 +97,20 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 4 - ((1 * winheight(0) + 10) / 20)
+let s:l = 42 - ((20 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 4
-normal! 028|
+keepjumps 42
+normal! 035|
 lcd ~/itu/mbds/angular/front
 wincmd w
 argglobal
-if bufexists(fnamemodify("~/itu/mbds/angular/front/src/app/assignments-new/add-assignment/add-assignment.component.css", ":p")) | buffer ~/itu/mbds/angular/front/src/app/assignments-new/add-assignment/add-assignment.component.css | else | edit ~/itu/mbds/angular/front/src/app/assignments-new/add-assignment/add-assignment.component.css | endif
+if bufexists(fnamemodify("~/itu/mbds/angular/front/src/app/assignments-new/dragdrop-rendus/dragdrop-rendus.component.html", ":p")) | buffer ~/itu/mbds/angular/front/src/app/assignments-new/dragdrop-rendus/dragdrop-rendus.component.html | else | edit ~/itu/mbds/angular/front/src/app/assignments-new/dragdrop-rendus/dragdrop-rendus.component.html | endif
 if &buftype ==# 'terminal'
-  silent file ~/itu/mbds/angular/front/src/app/assignments-new/add-assignment/add-assignment.component.css
+  silent file ~/itu/mbds/angular/front/src/app/assignments-new/dragdrop-rendus/dragdrop-rendus.component.html
 endif
-balt ~/itu/mbds/angular/front/src/app/assignments-new/add-assignment/add-assignment.component.ts
+balt ~/itu/mbds/angular/front/src/app/matieres/matieres.component.html
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -113,16 +121,15 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 12 - ((11 * winheight(0) + 10) / 20)
+let s:l = 12 - ((11 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 12
-normal! 020|
+normal! 010|
 lcd ~/itu/mbds/angular/front
 wincmd w
-exe 'vert 1resize ' . ((&columns * 78 + 40) / 80)
-exe 'vert 2resize ' . ((&columns * 1 + 40) / 80)
+wincmd =
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
